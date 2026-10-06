@@ -1,6 +1,6 @@
 import { getAuthHeaders } from './sessionService'
 
-const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:3000'
+const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:3000/api'
 
 async function request(endpoint, options = {}) {
   let response
@@ -53,6 +53,13 @@ export async function getUsers({ page = 1, limit = 5 } = {}) {
       totalPages: 1,
     },
   }
+}
+
+export async function createUser(payload) {
+  return request('/users', {
+    method: 'POST',
+    body: JSON.stringify(payload),
+  })
 }
 
 export async function updateUser(userId, payload) {

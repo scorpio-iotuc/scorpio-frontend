@@ -6,7 +6,7 @@ import {
   regenerateStationKey,
 } from '../../services/stationService'
 import { clearSession, getCurrentUserId, getToken } from '../../services/sessionService'
-import { deleteUser, getUserById, getUsers, updateUser } from '../../services/userService'
+import { createUser, deleteUser, getUserById, getUsers, updateUser } from '../../services/userService'
 import './Dashboard.css'
 
 const PAGE_SIZE = 5
@@ -27,8 +27,15 @@ const initialSettingsForm = {
 const initialAdminUserForm = {
   name: '',
   email: '',
-  type: 'user',
+  type: 'normal',
   password: '',
+}
+
+const initialCreateUserForm = {
+  name: '',
+  email: '',
+  password: '',
+  type: 'normal',
 }
 
 function isOnline(station) {
@@ -131,6 +138,8 @@ export default function Dashboard() {
   const [adminStationDeleteConfirmation, setAdminStationDeleteConfirmation] = useState('')
   const [isLoadingAdminUsers, setIsLoadingAdminUsers] = useState(false)
   const [isSavingAdminUser, setIsSavingAdminUser] = useState(false)
+  const [createUserForm, setCreateUserForm] = useState(initialCreateUserForm)
+  const [isCreatingUser, setIsCreatingUser] = useState(false)
 
   const userId = useMemo(() => getCurrentUserId(), [])
   const isAdmin = user?.type === 'admin'
@@ -237,6 +246,11 @@ export default function Dashboard() {
   function handleAdminUserFormChange(event) {
     const { name, value } = event.target
     setAdminUserForm((current) => ({ ...current, [name]: value }))
+  }
+
+  function handleCreateUserFormChange(event) {
+    const { name, value } = event.target
+    setCreateUserForm((current) => ({ ...current, [name]: value }))
   }
 
   async function refreshStations(nextSelectedId) {
@@ -398,7 +412,10 @@ export default function Dashboard() {
       const payload = {
         name: adminUserForm.name.trim(),
         email: adminUserForm.email.trim(),
-        type: adminUserForm.type,
+      }
+
+      if (adminUserForm.type !== selectedAdminUser.type) {
+        payload.type = adminUserForm.type
       }
 
       if (adminUserForm.password) {
@@ -410,7 +427,7 @@ export default function Dashboard() {
       setAdminUserForm({
         name: updatedUser?.name || '',
         email: updatedUser?.email || '',
-        type: updatedUser?.type || 'user',
+        type: updatedUser?.type || 'normal',
         password: '',
       })
       await refreshAdminUsers()
@@ -419,6 +436,31 @@ export default function Dashboard() {
       setError(updateError.message)
     } finally {
       setIsSavingAdminUser(false)
+    }
+  }
+
+  async function handleCreateUser(event) {
+    event.preventDefault()
+    setIsCreatingUser(true)
+    setError('')
+    setMessage('')
+
+    try {
+      const payload = {
+        name: createUserForm.name.trim(),
+        email: createUserForm.email.trim(),
+        password: createUserForm.password,
+        type: createUserForm.type,
+      }
+
+      await createUser(payload)
+      setCreateUserForm(initialCreateUserForm)
+      await refreshAdminUsers()
+      setMessage('Usuario creado correctamente.')
+    } catch (createError) {
+      setError(createError.message)
+    } finally {
+      setIsCreatingUser(false)
     }
   }
 
@@ -471,7 +513,7 @@ export default function Dashboard() {
     setAdminUserForm({
       name: nextUser?.name || '',
       email: nextUser?.email || '',
-      type: nextUser?.type || 'user',
+      type: nextUser?.type || 'normal',
       password: '',
     })
   }
@@ -719,7 +761,7 @@ export default function Dashboard() {
                           >
                             <strong>{adminUser.name || adminUser.email}</strong>
                             <span>{adminUser.email}</span>
-                            <small>{adminUser.type || 'user'}</small>
+                            <small>{adminUser.type || 'normal'}</small>
                           </button>
                         ))}
                       </div>
@@ -744,7 +786,7 @@ export default function Dashboard() {
                       <label>
                         Type
                         <select name="type" value={adminUserForm.type} onChange={handleAdminUserFormChange}>
-                          <option value="user">user</option>
+                          <option value="normal">normal</option>
                           <option value="admin">admin</option>
                         </select>
                       </label>
@@ -774,6 +816,34 @@ export default function Dashboard() {
                       </button>
                     </div>
                   )}
+
+                  <div className="dashboard-panel__subheader">
+                    <p>Users</p>
+                    <h3>Create user</h3>
+                  </div>
+
+                  <form className="dashboard-form" onSubmit={handleCreateUser}>
+                    <label>
+                      Name
+                      <input name="name" value={createUserForm.name} onChange={handleCreateUserFormChange} required />
+                    </label>
+                    <label>
+                      Email
+                      <input name="email" type="email" value={createUserForm.email} onChange={handleCreateUserFormChange} required />
+                    </label>
+                    <label>
+                      Password
+                      <input name="password" type="password" value={createUserForm.password} onChange={handleCreateUserFormChange} required />
+                    </label>
+                    <label>
+                      Type
+                      <select name="type" value={createUserForm.type} onChange={handleCreateUserFormChange}>
+                        <option value="normal">normal</option>
+                        <option value="admin">admin</option>
+                      </select>
+                    </label>
+                    <button type="submit" disabled={isCreatingUser}>{isCreatingUser ? 'Creando...' : 'Crear usuario'}</button>
+                  </form>
                 </section>
 
                 <section className="admin-section">

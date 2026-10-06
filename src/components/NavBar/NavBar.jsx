@@ -1,9 +1,9 @@
 import { FaMagnifyingGlass, FaRightToBracket } from 'react-icons/fa6'
-import './Navbar.css'
+import './NavBar.css'
 import { useState } from 'react'
 import { Menu, MenuToggle } from './elements/Menu/Menu.jsx'
 import { FilterSidebar } from './elements/FilterSidebar/FilterSidebar.jsx'
-import { NavbarProvider } from './NavbarContext.jsx'
+import { NavbarProvider } from './NavBarContext.jsx'
 
 export default function Navbar({
   telemetryMessage = '',
@@ -47,6 +47,12 @@ export default function Navbar({
           className="mission-navbar__actions"
           aria-label="Primary navigation"
         >
+          <div className="mission-navbar__hosted-by">
+            <span>Powered by</span>
+            <a href="https://cpsrtc.cl" target="_blank" rel="noopener noreferrer" aria-label="CPS-RTC">
+              <img src="/cps-rtc-horizontal-white.svg" alt="CPS-RTC" />
+            </a>
+          </div>
           <button
             type="button"
             aria-label="Filters"

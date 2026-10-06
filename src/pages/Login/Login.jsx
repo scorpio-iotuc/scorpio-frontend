@@ -2,6 +2,7 @@ import { useState } from 'react'
 import AuthCard from '../../components/AuthCard/AuthCard'
 import { login } from '../../services/authService'
 import { setToken } from '../../services/sessionService'
+import { useSignupMode } from '../../hooks/useSignupMode'
 import './Login.css'
 
 const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
@@ -10,6 +11,8 @@ export default function Login() {
   const [formData, setFormData] = useState({ email: '', password: '' })
   const [error, setError] = useState('')
   const [isLoading, setIsLoading] = useState(false)
+  const { signupMode, loading: signupModeLoading } = useSignupMode()
+  const showSignupButton = !signupModeLoading && signupMode === 'public'
 
   function handleChange(event) {
     const { name, value } = event.target
@@ -105,9 +108,11 @@ export default function Login() {
             {isLoading ? 'Authenticating...' : 'Login'}
           </button>
 
-          <button className="auth-form__button auth-form__button--secondary" type="button" onClick={goToSignUp}>
-            New account
-          </button>
+          {showSignupButton && (
+            <button className="auth-form__button auth-form__button--secondary" type="button" onClick={goToSignUp}>
+              New account
+            </button>
+          )}
         </form>
       </AuthCard>
     </main>

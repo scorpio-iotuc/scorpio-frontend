@@ -1,4 +1,4 @@
-const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:3000'
+const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:3000/api'
 
 async function request(endpoint, options) {
   let response
@@ -24,16 +24,19 @@ async function request(endpoint, options) {
 
   if (!response.ok) {
     const serverMessage = data?.message || data?.error
+    let message
 
     if (response.status === 401 || response.status === 403) {
-      throw new Error(serverMessage || 'Invalid email or password.')
+      message = serverMessage || 'Invalid email or password.'
+    } else if (response.status >= 500) {
+      message = serverMessage || 'SCORPIO authentication services are temporarily unavailable.'
+    } else {
+      message = serverMessage || 'The authentication request could not be completed.'
     }
 
-    if (response.status >= 500) {
-      throw new Error(serverMessage || 'SCORPIO authentication services are temporarily unavailable.')
-    }
-
-    throw new Error(serverMessage || 'The authentication request could not be completed.')
+    const error = new Error(message)
+    error.status = response.status
+    throw error
   }
 
   return data
@@ -63,4 +66,19 @@ export async function signup(name, email, password) {
   }
 
   return data
+}
+
+export async function getAuthConfig() {
+  try {
+    const response = await fetch(`${API_URL}/auth/config`)
+    const data = await response.json()
+
+    if (response.ok && (data?.signupMode === 'public' || data?.signupMode === 'admin')) {
+      return { signupMode: data.signupMode }
+    }
+  } catch {
+    // Network/parse failure: fall through to the safe default below.
+  }
+
+  return { signupMode: 'admin' }
 }

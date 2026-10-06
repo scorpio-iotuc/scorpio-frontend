@@ -16,6 +16,7 @@ export default function SignUp() {
   const [error, setError] = useState('')
   const [successMessage, setSuccessMessage] = useState('')
   const [isLoading, setIsLoading] = useState(false)
+  const [signupDisabled, setSignupDisabled] = useState(false)
 
   function handleChange(event) {
     const { name, value } = event.target
@@ -63,7 +64,11 @@ export default function SignUp() {
         window.location.assign('/login')
       }, 1200)
     } catch (requestError) {
-      setError(requestError.message)
+      if (requestError.status === 403) {
+        setSignupDisabled(true)
+      } else {
+        setError(requestError.message)
+      }
     } finally {
       setIsLoading(false)
     }
@@ -80,6 +85,16 @@ export default function SignUp() {
       </div>
 
       <AuthCard>
+        {signupDisabled ? (
+          <>
+            <p className="auth-form__message auth-form__message--info" role="status">
+              El registro esta deshabilitado. Contacta a un administrador.
+            </p>
+            <a className="auth-form__button auth-form__button--secondary" href="/login">
+              Ir a login
+            </a>
+          </>
+        ) : (
         <form className="auth-form auth-form--signup" onSubmit={handleSubmit} noValidate>
           <div className="auth-form__field">
             <label htmlFor="signup-name">User name</label>
@@ -162,6 +177,7 @@ export default function SignUp() {
             Login
           </button>
         </form>
+        )}
       </AuthCard>
     </main>
   )

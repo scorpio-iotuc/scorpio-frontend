@@ -114,6 +114,34 @@
   line-height: 1.5;
 }
 
+.auth-card__hosted-by {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  margin-top: 20px;
+  padding-top: 16px;
+  border-top: 1px solid rgba(51, 65, 85, 0.6);
+}
+
+.auth-card__hosted-by span {
+  color: #94a3b8;
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+
+.auth-card__hosted-by a {
+  display: inline-flex;
+}
+
+.auth-card__hosted-by img {
+  height: 54px;
+  width: auto;
+}
+
 @media (max-width: 520px) {
   .auth-card {
     width: 100%;

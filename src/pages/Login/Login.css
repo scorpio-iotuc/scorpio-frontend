@@ -113,6 +113,12 @@
   border: 1px solid rgba(34, 197, 94, 0.38);
 }
 
+.auth-form__message--info {
+  color: #bae6fd;
+  background: rgba(59, 130, 246, 0.12);
+  border: 1px solid rgba(59, 130, 246, 0.38);
+}
+
 .auth-form__button {
   display: inline-flex;
   align-items: center;

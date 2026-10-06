@@ -1,0 +1,34 @@
+services:
+  frontend:
+    build:
+      context: .
+      dockerfile: Dockerfile
+      args:
+        VITE_API_URL: ${VITE_API_URL:?Set VITE_API_URL to the public backend URL before building}
+    image: scorpio-frontend:latest
+    restart: unless-stopped
+    ports:
+      - "${PORT:-8080}:80"
+    environment:
+      ORIGIN_SECRET: ${ORIGIN_SECRET:-}
+    networks:
+      - scorpio-net
+    healthcheck:
+      test: ["CMD", "wget", "--quiet", "--tries=1", "--spider", "http://127.0.0.1/healthz"]
+      interval: 30s
+      timeout: 3s
+      retries: 3
+      start_period: 5s
+    deploy:
+      resources:
+        limits:
+          cpus: "0.5"
+          memory: 256M
+        reservations:
+          cpus: "0.1"
+          memory: 64M
+
+networks:
+  scorpio-net:
+    external: true
+    name: scorpio-net

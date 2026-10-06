@@ -1,6 +1,6 @@
 import { useEffect, useMemo, useState } from 'react'
 import GlobeView from '../../components/GlobeView/GlobeView'
-import Navbar from '../../components/Navbar/Navbar'
+import Navbar from '../../components/NavBar/NavBar'
 import PacketDetailPanel from '../../components/StationPanel/PacketDetailPanel'
 import SatellitePanel from '../../components/StationPanel/SatellitePanel'
 import StationPanel from '../../components/StationPanel/StationPanel'

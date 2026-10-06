@@ -16,6 +16,12 @@ export default function AuthCard({ children}) {
       </div>
       {children}
       <a href='/'>Home</a>
+      <div className="auth-card__hosted-by">
+        <span>Powered by</span>
+        <a href="https://cpsrtc.cl" target="_blank" rel="noopener noreferrer" aria-label="CPS-RTC">
+          <img src="/cps-rtc-horizontal-white.svg" alt="CPS-RTC" />
+        </a>
+      </div>
     </section>
   )
 }

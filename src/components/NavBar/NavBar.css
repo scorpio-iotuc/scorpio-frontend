@@ -105,6 +105,37 @@
   gap: 10px;
 }
 
+.mission-navbar__hosted-by {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding-right: 10px;
+  margin-right: 4px;
+  border-right: 1px solid rgba(51, 65, 85, 0.75);
+}
+
+.mission-navbar__hosted-by span {
+  color: #94a3b8;
+  font-size: 0.68rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+
+.mission-navbar__actions .mission-navbar__hosted-by a {
+  display: inline-flex;
+  width: auto;
+  height: auto;
+  background: none;
+  border: none;
+}
+
+.mission-navbar__hosted-by img {
+  height: 48px;
+  width: auto;
+}
+
 .mission-navbar__actions button,
 .mission-navbar__actions a {
   display: grid;
@@ -162,5 +193,14 @@
   .mission-navbar__actions a {
     width: 36px;
     height: 36px;
+  }
+
+  .mission-navbar__hosted-by span {
+    display: none;
+  }
+
+  .mission-navbar__hosted-by {
+    padding-right: 6px;
+    margin-right: 0;
   }
 }
