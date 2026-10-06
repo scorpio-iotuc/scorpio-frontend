@@ -2,6 +2,20 @@
 
 Registro de los cambios implementados para el despliegue en `scorpio.cpsrtc.cl` (CloudFront + WAF delante de un origen nginx). Incluye cambios en `scorpio-frontend` y, donde corresponde, los cambios coordinados en `scorpio-backend` necesarios para que el conjunto funcione.
 
+## 2026-10-02
+
+### CI/CD
+
+- `.github/workflows/ci.yml`: instala dependencias con lockfile, ejecuta ESLint sin warnings y compila con `VITE_API_URL=/api`. Se activa solo en PRs hacia `development` o `main`. El proyecto usa JS/JSX; no incluye chequeo de tipos TypeScript.
+- `.github/workflows/cd.yml`: se activa solo cuando se mergea un PR en `main` (`pull_request_target` `closed`; usa el `cd.yml` de la rama predeterminada `main`, así un PR no puede alterar los pasos de despliegue; el workflow debe estar en `main` para dispararse) y, en el runner self-hosted `scorpio-frontend`, despliega el SHA del merge en `/opt/SCORPIO/scorpio-frontend` con `docker compose up -d --build --wait` y verifica `/healthz`.
+- Healthcheck (`Dockerfile` y `docker-compose.yml`): `http://localhost/healthz` → `http://127.0.0.1/healthz`. En Alpine `localhost` resolvía a `::1` y nginx solo escucha IPv4, dejando el contenedor `unhealthy`.
+- `docs/CICD.md`: documenta los workflows, las reglas de merge y la configuración pendiente de despliegue.
+
+### Fixes en servicios
+
+- `src/services/packetService.js`: agrega una base absoluta al constructor `URL` para admitir `VITE_API_URL=/api`, evitando `Invalid URL` al consultar paquetes.
+- `src/services/satelliteService.js`: aplica la misma corrección al listado de satélites, conservando los parámetros de búsqueda y paginación.
+
 ## 2026-09-24
 
 ### Modo de registro (signup mode)

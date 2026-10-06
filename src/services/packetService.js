@@ -1,7 +1,7 @@
 const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:3000/api'
 
 function buildPacketUrl(station, { limit = 10, page = 1 } = {}) {
-  const url = new URL(`${API_URL}/packets`)
+  const url = new URL(`${API_URL}/packets`, `${window.location.origin}/api/packets`)
 
   if (station?.uuid) {
     url.searchParams.set('stationUuid', station.uuid)
