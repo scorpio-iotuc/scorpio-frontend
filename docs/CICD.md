@@ -2,7 +2,7 @@
 
 ## CI
 
-El workflow `.github/workflows/ci.yml` corre solo en pull requests dirigidos a `development`, `deploy` o `main` (apertura, nuevos commits y reapertura). No corre en pushes, tampoco tras el merge, ni de forma manual. Usa Node.js 22 y Yarn 1.22.22, conforme al proyecto.
+El workflow `.github/workflows/ci.yml` corre solo en pull requests dirigidos a `development` o `main` (apertura, nuevos commits y reapertura). No corre en pushes, tampoco tras el merge, ni de forma manual. Usa Node.js 22 y Yarn 1.22.22, conforme al proyecto.
 
 El check **Frontend lint and build** instala el lockfile con `yarn install --frozen-lockfile --non-interactive`, ejecuta ESLint sin permitir warnings y construye el frontend con `VITE_API_URL=/api`.
 
@@ -24,9 +24,9 @@ Estos comandos comprueban los pasos locales, no los triggers o permisos de GitHu
 
 ## CD
 
-`.github/workflows/cd.yml` se activa con `pull_request_target` de tipo `closed` hacia `deploy` (ver [Seguridad](#seguridad-repos-públicos)), y el job solo corre si `github.event.pull_request.merged == true`. Un PR cerrado sin merge se omite. Un push directo a `deploy` no dispara CD, y no hay ejecucion manual.
+`.github/workflows/cd.yml` se activa con `pull_request_target` de tipo `closed` hacia `main` (ver [Seguridad](#seguridad-repos-públicos)), y el job solo corre si `github.event.pull_request.merged == true`. Un PR cerrado sin merge se omite. Un push directo a `main` no dispara CD, y no hay ejecucion manual. La rama `deploy` dejo de usarse para desplegar y se eliminara.
 
-Despliega el commit del merge (`pull_request.merge_commit_sha`, no `github.sha`, que en eventos de PR no siempre es el commit que quedo en `deploy`) directamente en la VM.
+Despliega el commit del merge (`pull_request.merge_commit_sha`, no `github.sha`, que en eventos de PR no siempre es el commit que quedo en `main`) directamente en la VM.
 
 ### Donde corre
 
@@ -42,7 +42,7 @@ En el runner self-hosted `scorpio-frontend-01` (`runs-on: [self-hosted, scorpio-
 | --- | --- |
 | Check deploy directory is clean | Falla si hay cambios sin commitear en archivos versionados |
 | Check backend network exists | Exige que exista `scorpio-net`, que crea el stack del backend. Desplegar el backend primero |
-| Fetch merged commit | `git fetch origin deploy` con el `GITHUB_TOKEN` del job y comprueba que el SHA pertenezca a `origin/deploy` |
+| Fetch merged commit | `git fetch origin main` con el `GITHUB_TOKEN` del job y comprueba que el SHA pertenezca a `origin/main` |
 | Check out merged commit | `git checkout --detach <merge_commit_sha>` |
 | Build and start container | `docker compose up -d --build --remove-orphans --wait --wait-timeout 180`. `VITE_API_URL` se lee del `.env` y se incorpora al bundle al compilar |
 | Verify health | `wget --spider http://127.0.0.1/healthz` dentro del contenedor (el host de la VM no alcanza los puertos publicados por Docker) |
@@ -55,8 +55,8 @@ El healthcheck usa `127.0.0.1` y no `localhost`: en la imagen Alpine `localhost`
 
 Los repos son públicos y el runner self-hosted corre como `gh-runner`, que pertenece al grupo `docker` (en la práctica, root en la VM) y tiene acceso a `/opt/SCORPIO` y a los `.env` productivos.
 
-- **`pull_request_target` en vez de `pull_request`.** Con `pull_request`, GitHub ejecuta el `cd.yml` del PR: un fork podría modificarlo (quitar el `if: merged`, cambiar los pasos) y su código correría en la VM al cerrarse el PR. Con `pull_request_target`, GitHub usa el `cd.yml` de la **rama predeterminada (`main`)**, no el del PR ni el de `deploy`. El job nunca hace checkout del head del PR, solo de `merge_commit_sha`, que ya está en `deploy`.
-- **Consecuencia: `cd.yml` debe estar en `main`.** Si `main` no tiene el workflow, mergear en `deploy` no dispara nada (ni siquiera aparece un run omitido). Un cambio a `cd.yml` solo tiene efecto cuando llega a `main`, normalmente con un PR `deploy` → `main` después de mergear en `deploy`.
+- **`pull_request_target` en vez de `pull_request`.** Con `pull_request`, GitHub ejecuta el `cd.yml` del PR: un fork podría modificarlo (quitar el `if: merged`, cambiar los pasos) y su código correría en la VM al cerrarse el PR. Con `pull_request_target`, GitHub usa el `cd.yml` de la rama predeterminada, `main`, nunca el del PR. El job nunca hace checkout del head del PR, solo de `merge_commit_sha`, que ya está en `main`.
+- **Consecuencia:** un cambio a `cd.yml` solo tiene efecto una vez mergeado en `main`. Si `main` no tiene el workflow, un merge no dispara nada (ni siquiera aparece un run omitido).
 - **Límite:** esto no impide que un fork agregue un workflow **nuevo** con `runs-on: [self-hosted, scorpio-frontend]` y `on: pull_request`. La protección contra eso es una configuración de GitHub, no del YAML.
 - **CI sigue en `ubuntu-latest`** por la misma razón: ejecuta código de PRs sin mergear.
 
@@ -73,17 +73,17 @@ Configuración requerida en **Settings → Actions → General**:
 
 ### Fallos y recuperacion
 
-Si falla antes de `docker compose up`, la VM sigue con la version anterior. Para volver atras, mergear en `deploy` un PR que revierta el cambio, o manualmente en la VM: `git checkout --detach <sha-anterior> && docker compose up -d --build --wait`.
+Si falla antes de `docker compose up`, la VM sigue con la version anterior. Para volver atras, mergear en `main` un PR que revierta el cambio, o manualmente en la VM: `git checkout --detach <sha-anterior> && docker compose up -d --build --wait`.
 
 ## Regla de merge
 
-En GitHub, activar un ruleset para `deploy` (y `development` si se quiere el mismo control) con PR obligatorio y **Require status checks to pass**, seleccionando **Frontend lint and build**. Exigir la rama actualizada y configurar revisiones y bypass segun el equipo. El YAML no crea esta regla ni hace que CD espere a CI. Un push directo no dispara CD pero si cambia `deploy`, por eso el ruleset debe bloquearlo.
+En GitHub, activar un ruleset para `main` (y `development` si se quiere el mismo control) con PR obligatorio y **Require status checks to pass**, seleccionando **Frontend lint and build**. Exigir la rama actualizada y configurar revisiones y bypass segun el equipo. El YAML no crea esta regla ni hace que CD espere a CI. Un push directo no dispara CD pero si cambia `main`, por eso el ruleset debe bloquearlo.
 
 ```mermaid
 flowchart TD
-    PR["PR hacia deploy"] --> CI["Yarn install + lint + build"]
+    PR["PR hacia main"] --> CI["Yarn install + lint + build"]
     CI --> Rule["Ruleset exige check aprobado y revisiones"]
-    Rule --> Merge["Merge del PR a deploy"]
+    Rule --> Merge["Merge del PR a main"]
     Merge --> CD["CD en runner self-hosted: checkout del SHA del merge"]
     CD --> Up["docker compose up -d --build --wait"]
     Up --> Health["Verifica /healthz"]
@@ -103,8 +103,8 @@ Los eventos simulados estan en [.github/act-events](../.github/act-events):
 
 | Archivo | Simula |
 | --- | --- |
-| `pr-merged-deploy.json` | PR #123 mergeado a `deploy` (`merge_commit_sha: deadbeef`) |
-| `pr-closed-deploy.json` | PR hacia `deploy` cerrado sin merge |
+| `pr-merged-main.json` | PR #123 mergeado a `main` (con un `merge_commit_sha` de ejemplo) |
+| `pr-closed-main.json` | PR hacia `main` cerrado sin merge |
 | `pr-opened-development.json` | PR abierto hacia `development` |
 
 Desde la raiz del repositorio:
@@ -113,11 +113,11 @@ Desde la raiz del repositorio:
 
 ```bash
 # CD, PR mergeado (dry-run): lista los pasos de "Deploy to VM"
-act pull_request_target -n -W .github/workflows/cd.yml -e .github/act-events/pr-merged-deploy.json \
+act pull_request_target -n -W .github/workflows/cd.yml -e .github/act-events/pr-merged-main.json \
   -P self-hosted=catthehacker/ubuntu:act-latest
 
 # CD, PR cerrado sin merge (dry-run): no planifica ningun paso
-act pull_request_target -n -W .github/workflows/cd.yml -e .github/act-events/pr-closed-deploy.json \
+act pull_request_target -n -W .github/workflows/cd.yml -e .github/act-events/pr-closed-main.json \
   -P self-hosted=catthehacker/ubuntu:act-latest
 
 # CI completo: checkout, Node, Yarn, lint y build
@@ -136,5 +136,5 @@ Limitaciones:
 ## Pendiente
 
 - Si se requiere aprobacion antes de modificar produccion, configurar un environment `production` con revisores y asociarlo al job.
-- CD no consulta el resultado de CI; depende del ruleset de `deploy`.
+- CD no consulta el resultado de CI; depende del ruleset de `main`.
 - Revisar con el administrador por que el host de la VM no alcanza los puertos publicados por Docker (`curl: (56) Connection reset by peer`).

@@ -2,7 +2,7 @@ name: Scorpio Frontend CI
 
 on:
   pull_request:
-    branches: [development, deploy, main]
+    branches: [development, main]
 
 permissions:
   contents: read
