@@ -7,7 +7,7 @@ Registro de los cambios implementados para el despliegue en `scorpio.cpsrtc.cl` 
 ### CI/CD
 
 - `.github/workflows/ci.yml`: instala dependencias con lockfile, ejecuta ESLint sin warnings y compila con `VITE_API_URL=/api`. Se activa solo en PRs hacia `development`, `deploy` o `main`. El proyecto usa JS/JSX; no incluye chequeo de tipos TypeScript.
-- `.github/workflows/cd.yml`: se activa solo cuando se mergea un PR en `deploy` y, en el runner self-hosted `scorpio-frontend`, despliega el SHA del merge en `/opt/SCORPIO/scorpio-frontend` con `docker compose up -d --build --wait` y verifica `/healthz`.
+- `.github/workflows/cd.yml`: se activa solo cuando se mergea un PR en `deploy` (`pull_request_target` `closed`; usa el `cd.yml` de `deploy`, así un PR no puede alterar los pasos de despliegue) y, en el runner self-hosted `scorpio-frontend`, despliega el SHA del merge en `/opt/SCORPIO/scorpio-frontend` con `docker compose up -d --build --wait` y verifica `/healthz`.
 - Healthcheck (`Dockerfile` y `docker-compose.yml`): `http://localhost/healthz` → `http://127.0.0.1/healthz`. En Alpine `localhost` resolvía a `::1` y nginx solo escucha IPv4, dejando el contenedor `unhealthy`.
 - `docs/CICD.md`: documenta los workflows, las reglas de merge y la configuración pendiente de despliegue.
 
