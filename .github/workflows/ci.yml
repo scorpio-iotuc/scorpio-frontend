@@ -1,0 +1,38 @@
+name: Scorpio Frontend CI
+
+on:
+  pull_request:
+    branches: [development, deploy, main]
+
+permissions:
+  contents: read
+
+concurrency:
+  group: frontend-ci-${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  validate:
+    name: Frontend lint and build
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    env:
+      VITE_API_URL: /api
+    steps:
+      - uses: actions/checkout@v4
+      # Validate Node.js version and install dependencies
+      - name: Configure Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+      - name: Configure project Yarn version
+        run: |
+          corepack enable
+          corepack prepare yarn@1.22.22 --activate
+      - name: Install locked dependencies
+        run: yarn install --frozen-lockfile --non-interactive
+      - name: Check JavaScript and React rules
+        run: yarn lint --max-warnings 0
+      # This repository uses JS/JSX. Vite builds are not TypeScript checks.
+      - name: Build production frontend
+        run: yarn build

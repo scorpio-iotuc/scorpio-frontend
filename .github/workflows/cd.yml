@@ -1,0 +1,97 @@
+name: Scorpio Frontend CD
+
+on:
+  # pull_request_target runs this file as it exists on deploy, so a PR cannot alter the
+  # deploy steps. Never check out the PR head here; only the merge commit already on deploy.
+  pull_request_target:
+    types: [closed]
+    branches: [deploy]
+
+permissions:
+  contents: read
+
+concurrency:
+  group: scorpio-frontend-cd-deploy
+  cancel-in-progress: false
+
+jobs:
+  deploy:
+    name: Deploy to VM
+    # Only PRs merged into deploy; closed-without-merge PRs are skipped.
+    if: github.event.pull_request.merged == true
+    # Self-hosted runner on the SCORPIO VM (user gh-runner, groups docker + scorpio-local).
+    runs-on: [self-hosted, scorpio-frontend]
+    timeout-minutes: 20
+    env:
+      DEPLOY_DIR: /opt/SCORPIO/scorpio-frontend
+      DEPLOY_SHA: ${{ github.event.pull_request.merge_commit_sha }}
+      PR_NUMBER: ${{ github.event.pull_request.number }}
+      # The deploy checkout belongs to another user; trust it for git commands in this job.
+      GIT_CONFIG_COUNT: "1"
+      GIT_CONFIG_KEY_0: safe.directory
+      GIT_CONFIG_VALUE_0: /opt/SCORPIO/scorpio-frontend
+    defaults:
+      run:
+        shell: bash
+        working-directory: /opt/SCORPIO/scorpio-frontend
+    steps:
+      # act mounts the host Docker socket: a local run would modify production. Use act only with -n.
+      - name: Refuse to run under act
+        run: |
+          if [ -n "${ACT:-}" ]; then
+            echo "::error::CD deploys to production; run it with act only as a dry-run (-n)."
+            exit 1
+          fi
+      # Refuse to overwrite local edits; .env, dist and node_modules are ignored and therefore allowed.
+      - name: Check deploy directory is clean
+        run: |
+          # Separate assignment so a git failure (e.g. not a repository) stops the job.
+          changes=$(git status --porcelain --untracked-files=no)
+          if [ -n "$changes" ]; then
+            echo "::error::$DEPLOY_DIR has uncommitted changes; commit or discard them before deploying."
+            git status --short --untracked-files=no
+            exit 1
+          fi
+      # scorpio-net is created by the backend stack; deploy the backend first.
+      - name: Check backend network exists
+        run: docker network inspect scorpio-net > /dev/null
+      - name: Fetch merged commit
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
+        run: |
+          auth=$(printf 'x-access-token:%s' "$GITHUB_TOKEN" | base64 -w0)
+          GIT_CONFIG_COUNT=2 \
+          GIT_CONFIG_KEY_1=http.https://github.com/.extraheader \
+          GIT_CONFIG_VALUE_1="AUTHORIZATION: basic $auth" \
+            git fetch --no-tags origin deploy
+          git merge-base --is-ancestor "$DEPLOY_SHA" origin/deploy
+      - name: Check out merged commit
+        run: |
+          # Keep files group-writable for scorpio-local users.
+          umask 002
+          git checkout --detach "$DEPLOY_SHA"
+          git log -1 --oneline
+      # VITE_API_URL comes from .env and is baked into the bundle at build time.
+      - name: Build and start container
+        run: docker compose up -d --build --remove-orphans --wait --wait-timeout 180
+      # Checked from inside the container: the VM host cannot reach published Docker ports.
+      - name: Verify health
+        run: docker compose exec -T frontend wget --quiet --tries=1 --spider http://127.0.0.1/healthz
+      - name: Print diagnostics on failure
+        if: failure()
+        run: |
+          docker compose ps -a
+          docker compose logs --no-color --tail=200
+      - name: Record deployment
+        if: always()
+        env:
+          JOB_STATUS: ${{ job.status }}
+        run: |
+          {
+            echo '## Frontend deployment'
+            echo
+            printf 'Status: `%s`\n\n' "$JOB_STATUS"
+            printf 'Merged PR: #%s\n\n' "$PR_NUMBER"
+            printf 'Commit: `%s`\n\n' "$DEPLOY_SHA"
+            printf 'Checked out: `%s`\n\n' "$(git rev-parse HEAD)"
+          } >> "$GITHUB_STEP_SUMMARY"
