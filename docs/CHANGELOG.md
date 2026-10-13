@@ -2,6 +2,29 @@
 
 Registro de los cambios implementados para el despliegue en `scorpio.cpsrtc.cl` (CloudFront + WAF delante de un origen nginx). Incluye cambios en `scorpio-frontend` y, donde corresponde, los cambios coordinados en `scorpio-backend` necesarios para que el conjunto funcione.
 
+## 2026-10-13
+
+### Dashboard: organización modular
+
+- Se separan las vistas My Stations, New Station, Settings, Admin y Jobs en directorios propios dentro de `elements/`, con archivos JSX y CSS por vista.
+- `Dashboard.jsx` conserva la estructura general; `Dashboard.constants.js` centraliza las vistas y las restricciones de navegación y renderizado para administradores.
+- El estado compartido se expone desde `context/DashboardContext.js`; los hooks se agrupan en `hooks/` y las funciones comunes en `helper/dashboardUtils.js`.
+- `Pagination` y `StationButton` se trasladan a `elements/`. Los estilos compartidos se dividen en archivos de layout, formularios y overlays, conservando el orden de la cascada.
+- Se agregan comentarios explicativos y se mantienen los archivos del Dashboard por debajo de 250 líneas.
+
+### Jobs: seguimiento de sincronización de satélites
+
+- Nuevo panel exclusivo para administradores con tabla de fecha de ejecución, estado y duración. Los estados completed, running, failed y queued se distinguen con verde, amarillo, rojo y cian, respectivamente.
+- Filtros combinables por estado y downloaded (true/false), aplicados en la API y con reinicio de la paginación al cambiar. Incluye actualización manual y estados de carga, error y lista vacía.
+- La columna de acciones, sin título visible, permite expandir información del job: ID, estado, inicio, término, downloaded y mensaje de error. Las fechas se muestran en la zona horaria local.
+- Los detalles incluyen animaciones de apertura y cierre con `.jobs-row-additional-info--closing`; permanecen montados hasta terminar el cierre y respetan la preferencia de movimiento reducido.
+- `useJobs` cancela solicitudes anteriores al cambiar los filtros o la página, o al desmontar la vista.
+
+### Servicios de satélites
+
+- Se agregan consultas para el listado de jobs (`/satellites/upsert/jobs`) y el último job (`/satellites/upsert/`), con autenticación Bearer mediante `getAuthHeaders()` y soporte de cancelación con `AbortSignal`.
+- El listado admite paginación y filtros por estado y downloaded. Se conserva el manejo de errores de red, respuesta inválida y errores reportados por la API.
+
 ## 2026-10-02
 
 ### CI/CD
