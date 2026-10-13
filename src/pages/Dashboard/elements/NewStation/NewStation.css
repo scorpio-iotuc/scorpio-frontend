@@ -1,0 +1,4 @@
+/* View-specific styles; shared controls are styled by Dashboard.css. */
+.newstation-panel {
+  min-width: 0;
+}

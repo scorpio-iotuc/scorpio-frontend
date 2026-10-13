@@ -1,0 +1,220 @@
+/* Horizontal scrolling keeps all job fields accessible on small screens. */
+.jobs-panel {
+  min-width: 0;
+}
+
+.jobs-table-scroll {
+  overflow-x: auto;
+  margin: 16px;
+}
+
+.jobs-table-scroll:focus-visible {
+  outline: 2px solid #22d3ee;
+}
+
+.jobs-table {
+  width: 100%;
+  min-width: 900px;
+  border-collapse: collapse;
+  text-align: left;
+}
+
+.jobs-table caption {
+  padding-bottom: 14px;
+  color: #94a3b8;
+  text-align: left;
+  font-size: 0.85rem;
+}
+
+.jobs-table th {
+  color: #cbd5e1;
+  background: rgba(30, 41, 59, 0.7);
+}
+
+.jobs-table th,
+.jobs-table td {
+  padding: 14px 12px;
+  border-bottom: 1px solid #334155;
+  vertical-align: top;
+}
+
+.jobs-table tbody tr:hover {
+  background: rgba(30, 41, 59, 0.35);
+}
+
+.jobs-id {
+  min-width: 220px;
+  /* overflow-wrap: anywhere; */
+}
+
+.jobs-table time {
+  display: block;
+  min-width: 150px;
+  font-size: 0.85rem;
+}
+
+.jobs-error-message {
+  min-width: 200px;
+  max-width: 360px;
+  overflow-wrap: anywhere;
+}
+
+/* Text labels accompany colors so state is not conveyed by color alone. */
+.jobs-status {
+  display: inline-block;
+  padding: 4px 9px;
+  border-radius: 20px;
+  font-size: 0.8rem;
+  font-weight: 700;
+}
+
+.jobs-status--completed {
+  color: #86efac;
+  background: rgba(34, 197, 94, 0.15);
+}
+
+.jobs-status--running {
+  color: #fde047;
+  background: rgba(234, 179, 8, 0.15);
+}
+
+.jobs-status--failed {
+  color: #fca5a5;
+  background: rgba(239, 68, 68, 0.15);
+}
+
+.jobs-status--queued {
+  color: #67e8f9;
+  background: rgba(6, 182, 212, 0.15);
+}
+
+.jobs-downloaded {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.jobs-dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+
+.jobs-dot--true {
+  background: #22c55e;
+}
+
+.jobs-dot--false {
+  background: #ef4444;
+}
+
+.jobs-error {
+  margin: 0;
+  padding: 16px;
+  color: #fca5a5;
+}
+
+.jobs-empty {
+  color: #94a3b8;
+  text-align: center;
+}
+
+/* Wrap the filter controls to fit narrow panels. */
+.jobs-filters {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px;
+  padding: 16px;
+}
+
+.jobs-filters label {
+  display: grid;
+  gap: 6px;
+  color: #cbd5e1;
+}
+
+.jobs-filters select {
+  min-width: 160px;
+  min-height: 42px;
+  padding: 0 12px;
+  color: #e2e8f0;
+  background: #0f172a;
+  border: 1px solid #475569;
+  border-radius: 8px;
+}
+
+.jobs-filters select:focus-visible {
+  outline: 2px solid #22d3ee;
+}
+
+/* Jobs additional info */
+.jobs-row-additional-info {
+  display: flex;
+  flex-direction: column;
+  gap: 12px 24px;
+  padding: 16px;
+  background: rgba(15, 23, 42, 0.7);
+  border-left: 3px solid #22d3ee;
+  border-radius: 4px;
+  overflow-wrap: anywhere;
+  animation: jobs-additional-info-slice 240ms ease-out both;
+}
+
+.jobs-row-additional-info__line {
+  display: flex;
+  flex-direction: row;
+  gap: 8px;
+}
+
+.jobs-row-additional-info__label {
+  color: #94a3b8;
+  font-weight: 700;
+}
+
+.jobs-row-additional-info--closing {
+  animation: jobs-additional-info-close 180ms ease-in both;
+  transform-origin: top;
+}
+
+@keyframes jobs-additional-info-slice {
+  from {
+    opacity: 0;
+    clip-path: inset(0 0 100% 0);
+  }
+
+  to {
+    opacity: 1;
+    clip-path: inset(0);
+  }
+}
+
+@keyframes jobs-additional-info-close {
+  from {
+    opacity: 1;
+    clip-path: inset(0);
+  }
+
+  to {
+    opacity: 0;
+    clip-path: inset(0 0 100% 0);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .jobs-row-additional-info,
+  .jobs-row-additional-info--closing {
+    animation: none;
+  }
+}
+
+.jobs-row-additional-info p {
+  margin: 0;
+  color: #cbd5e1;
+}
+
+.jobs-row-additional-info strong {
+  display: block;
+  margin-bottom: 4px;
+  color: #94a3b8;
+}
