@@ -1,0 +1,138 @@
+/* Dashboard forms styles. */
+.station-detail-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 10px;
+  margin: 0;
+  padding: 16px;
+}
+
+.station-detail-grid div {
+  padding: 12px;
+  text-align: left;
+  background: rgba(2, 6, 23, 0.38);
+  border: 1px solid rgba(51, 65, 85, 0.52);
+  border-radius: 8px;
+}
+
+.station-detail-grid dt {
+  color: #94a3b8;
+  font-size: 0.78rem;
+}
+
+.station-detail-grid dd {
+  margin: 4px 0 0;
+}
+
+.dashboard-actions,
+.dashboard-form,
+.danger-zone,
+.dashboard-state {
+  padding: 16px;
+}
+
+.dashboard-form {
+  display: grid;
+  gap: 12px;
+}
+
+.dashboard-form--narrow,
+.danger-zone--narrow {
+  max-width: 540px;
+}
+
+.dashboard-form label {
+  display: grid;
+  gap: 6px;
+  color: #cbd5e1;
+  text-align: left;
+}
+
+.dashboard-form input,
+.dashboard-form select,
+.danger-zone input {
+  width: 100%;
+  min-height: 42px;
+  padding: 0 12px;
+  color: #e2e8f0;
+  background: rgba(2, 6, 23, 0.58);
+  border: 1px solid rgba(51, 65, 85, 0.76);
+  border-radius: 8px;
+  box-sizing: border-box;
+}
+
+.dashboard-form input:focus,
+.dashboard-form select:focus,
+.danger-zone input:focus {
+  outline: 2px solid rgba(34, 211, 238, 0.35);
+  border-color: #22d3ee;
+}
+
+.dashboard-page button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 40px;
+  padding: 0 14px;
+  color: #e2e8f0;
+  background: rgba(59, 130, 246, 0.18);
+  border: 1px solid rgba(59, 130, 246, 0.58);
+  border-radius: 8px;
+  cursor: pointer;
+}
+
+.dashboard-page button:hover:not(:disabled) {
+  border-color: #22d3ee;
+}
+
+.dashboard-page button:disabled {
+  cursor: not-allowed;
+  opacity: 0.45;
+}
+
+.dashboard-pagination {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  padding: 0 12px 12px;
+}
+
+.dashboard-pagination span {
+  color: #94a3b8;
+  font-size: 0.82rem;
+}
+
+.danger-zone {
+  display: grid;
+  gap: 10px;
+  text-align: left;
+  border-top: 1px solid rgba(51, 65, 85, 0.56);
+}
+
+.danger-zone h3 {
+  margin: 0;
+  color: #fecaca;
+  font-size: 0.95rem;
+}
+
+.danger-zone p,
+.dashboard-state {
+  margin: 0;
+  color: #94a3b8;
+  text-align: left;
+}
+
+.danger-zone button {
+  color: #fecaca;
+  background: rgba(239, 68, 68, 0.12);
+  border-color: rgba(239, 68, 68, 0.48);
+}
+
+.dashboard-success {
+  color: #22c55e;
+}
+
+.dashboard-danger {
+  color: #ef4444;
+}
