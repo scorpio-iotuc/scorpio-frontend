@@ -1,0 +1,219 @@
+/* Dashboard layout styles. */
+.dashboard-page {
+  min-height: 100svh;
+  color: #e2e8f0;
+  background:
+    radial-gradient(
+      circle at 50% -10%,
+      rgba(59, 130, 246, 0.16),
+      transparent 32%
+    ),
+    #020617;
+}
+
+.dashboard-topbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  min-height: 64px;
+  padding: 0 24px;
+  background: rgba(15, 23, 42, 0.96);
+  border-bottom: 1px solid rgba(51, 65, 85, 0.88);
+}
+
+.dashboard-brand {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  color: #ffffff;
+  font-weight: 900;
+  letter-spacing: 0.08em;
+  text-decoration: none;
+}
+
+.dashboard-brand span {
+  display: grid;
+  place-items: center;
+  width: 34px;
+  height: 34px;
+  background: linear-gradient(
+    135deg,
+    rgba(59, 130, 246, 0.78),
+    rgba(34, 211, 238, 0.36)
+  );
+  border: 1px solid rgba(34, 211, 238, 0.72);
+  border-radius: 8px;
+}
+
+.dashboard-topbar div {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+
+.dashboard-topbar p {
+  margin: 0;
+  color: #94a3b8;
+}
+
+.dashboard-shell {
+  display: grid;
+  grid-template-columns: 250px minmax(0, 1fr);
+  gap: 16px;
+  padding: 16px;
+}
+
+.dashboard-sidebar,
+.dashboard-panel {
+  min-width: 0;
+  background: rgba(15, 23, 42, 0.9);
+  border: 1px solid rgba(51, 65, 85, 0.72);
+  border-radius: 8px;
+  box-shadow: 0 18px 52px rgba(2, 6, 23, 0.35);
+}
+
+.dashboard-sidebar {
+  position: sticky;
+  top: 16px;
+  align-self: start;
+  display: grid;
+  gap: 18px;
+  padding: 16px;
+}
+
+.dashboard-sidebar p,
+.dashboard-panel__header p,
+.dashboard-panel__subheader p {
+  margin: 0 0 4px;
+  color: #22d3ee;
+  font-size: 0.72rem;
+  font-weight: 800;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+.dashboard-sidebar h1,
+.dashboard-panel__header h2,
+.dashboard-panel__subheader h3 {
+  margin: 0;
+  color: #e2e8f0;
+  font-size: 1.08rem;
+  letter-spacing: 0;
+}
+
+.dashboard-sidebar nav {
+  display: grid;
+  gap: 8px;
+}
+
+.dashboard-sidebar button {
+  justify-content: flex-start;
+  width: 100%;
+  color: #cbd5e1;
+  background: rgba(2, 6, 23, 0.32);
+  border-color: rgba(51, 65, 85, 0.64);
+  text-align: left;
+}
+
+.dashboard-sidebar button:hover,
+.dashboard-sidebar .dashboard-sidebar__item--active {
+  color: #ffffff;
+  border-color: #22d3ee;
+  background: rgba(59, 130, 246, 0.18);
+}
+
+.dashboard-workspace {
+  min-width: 0;
+}
+
+.dashboard-panel {
+  overflow: hidden;
+}
+
+.dashboard-panel__header,
+.dashboard-panel__subheader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 14px;
+  padding: 16px;
+  background: rgba(30, 41, 59, 0.78);
+  border-bottom: 1px solid rgba(51, 65, 85, 0.7);
+  text-align: left;
+}
+
+.dashboard-panel__subheader {
+  background: rgba(15, 23, 42, 0.56);
+}
+
+.dashboard-panel__header span {
+  color: #bfdbfe;
+  font-weight: 900;
+}
+
+.dashboard-two-column,
+.admin-grid {
+  display: grid;
+  grid-template-columns: minmax(260px, 0.8fr) minmax(0, 1.2fr);
+  gap: 14px;
+  padding: 14px;
+}
+
+.dashboard-detail,
+.admin-section {
+  overflow: hidden;
+  background: rgba(2, 6, 23, 0.3);
+  border: 1px solid rgba(51, 65, 85, 0.58);
+  border-radius: 8px;
+}
+
+.station-list,
+.admin-list {
+  display: grid;
+  gap: 8px;
+  padding: 12px;
+}
+
+.station-list__item,
+.admin-list__item {
+  display: grid;
+  gap: 4px 10px;
+  width: 100%;
+  padding: 12px;
+  color: #e2e8f0;
+  text-align: left;
+  background: rgba(2, 6, 23, 0.42);
+  border: 1px solid rgba(51, 65, 85, 0.62);
+  border-radius: 8px;
+  cursor: pointer;
+}
+
+.station-list__item {
+  grid-template-columns: auto 1fr;
+}
+
+.station-list__item:hover,
+.station-list__item--active,
+.admin-list__item:hover,
+.admin-list__item--active {
+  border-color: #22d3ee;
+}
+
+.station-list__dot {
+  grid-row: span 2;
+  width: 9px;
+  height: 9px;
+  margin-top: 7px;
+  background: #ef4444;
+  border-radius: 50%;
+}
+
+.station-list__dot--online {
+  background: #22c55e;
+}
+
+.station-list__item small,
+.admin-list__item span,
+.admin-list__item small {
+  color: #94a3b8;
+}

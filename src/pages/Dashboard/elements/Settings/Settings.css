@@ -1,0 +1,4 @@
+/* View-specific styles; shared controls are styled by Dashboard.css. */
+.settings-panel {
+  min-width: 0;
+}
