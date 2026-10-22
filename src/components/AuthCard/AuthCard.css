@@ -9,18 +9,14 @@
     radial-gradient(circle at top right, rgba(34, 211, 238, 0.14), transparent 34%);
   border: 1px solid rgba(36, 59, 103, 0.92);
   border-radius: 8px;
-  box-shadow:
-    0 24px 90px rgba(0, 0, 0, 0.42),
-    0 0 44px rgba(59, 130, 246, 0.2),
-    inset 0 1px 0 rgba(226, 232, 240, 0.12);
   backdrop-filter: blur(20px);
   box-sizing: border-box;
 }
 
 .auth-card a {
   padding-top: 2rem;
-  font-size: normal;
-  color: rgba(131, 247, 255, 0.407);
+  font-size: .8em;
+  color: rgba(38, 138, 226, 0.638);
 }
 
 .auth-card::before {
@@ -28,9 +24,6 @@
   position: absolute;
   inset: 0;
   pointer-events: none;
-  background-image:
-    linear-gradient(rgba(34, 211, 238, 0.05) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(34, 211, 238, 0.05) 1px, transparent 1px);
   background-size: 28px 28px;
   mask-image: linear-gradient(to bottom, black, transparent 72%);
 }
@@ -71,6 +64,14 @@
   border: 1px solid rgba(34, 211, 238, 0.42);
   border-radius: 8px;
   box-shadow: 0 0 28px rgba(34, 211, 238, 0.22);
+}
+.auth-card__logo img {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 100%;
+  height: auto;
+  transform: translate(-50%, -50%);
 }
 
 .auth-card__logo-orbit {

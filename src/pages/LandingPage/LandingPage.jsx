@@ -95,24 +95,21 @@ export default function LandingPage() {
   }, [latestPacketEvent])
 
   function handleStationSelect(station) {
-    setSelectedSatellite(null)
     setSelectedPacket(null)
     setPacketPage(1)
     setSelectedStation(station)
   }
 
   function handleSatelliteSelect(satellite) {
-    setSelectedStation(null)
-    setSelectedPacket(null)
-    setPacketPage(1)
     setSelectedSatellite(satellite)
   }
-
+  // Handle the change in selected station filter IDs
   function handleStationFilterChange(nextStationIds) {
     setSelectedStationFilterIds(nextStationIds)
 
     if (selectedStation && nextStationIds.length) {
       const selectedIds = new Set(nextStationIds.map(String))
+      // If the currently selected station is not in the new filter list, reset the selected station and packet
       const stationId = String(selectedStation.uuid || selectedStation.id)
 
       if (!selectedIds.has(stationId)) {
@@ -123,11 +120,19 @@ export default function LandingPage() {
     }
   }
 
-  function handleClosePanel() {
+  function handleCloseStationPanel() {
     setSelectedPacket(null)
     setPacketPage(1)
     setSelectedStation(null)
+  }
+
+  function handleCloseSatellitePanel() {
     setSelectedSatellite(null)
+  }
+
+  function handleClosePanel() {
+    handleCloseStationPanel()
+    handleCloseSatellitePanel()
   }
 
   function handleBackToStation() {
@@ -170,7 +175,7 @@ export default function LandingPage() {
         <StationPanel
           station={selectedStation}
           isOpen={isSidebarOpen && !selectedPacket}
-          onClose={handleClosePanel}
+          onClose={handleCloseStationPanel}
           packets={stationPackets}
           packetPagination={packetPagination}
           packetPage={packetPage}
@@ -186,7 +191,7 @@ export default function LandingPage() {
         <SatellitePanel
           satellite={selectedLiveSatellite}
           isOpen={Boolean(selectedLiveSatellite)}
-          onClose={handleClosePanel}
+          onClose={handleCloseSatellitePanel}
         />
 
         <PacketDetailPanel
@@ -194,7 +199,7 @@ export default function LandingPage() {
           packet={selectedPacket}
           isOpen={Boolean(selectedPacket)}
           onBack={handleBackToStation}
-          onClose={handleClosePanel}
+          onClose={handleCloseStationPanel}
         />
       </section>
       <StatusBar

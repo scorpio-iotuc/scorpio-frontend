@@ -150,28 +150,29 @@ export const FilterSidebar = ({
   }
 
   return (
-    <aside className={`filter-sidebar ${isOpen ? 'open' : ''}`} aria-hidden={!isOpen}>
+    <aside className={`filter-sidebar ${isOpen ? 'open' : ''}`} aria-hidden={!isOpen} inert={!isOpen}>
       <div className="filter-header">
         <div>
           <p>Mission filters</p>
         </div>
         <button className="filter-close" type="button" onClick={onClose} aria-label="Cerrar filtros">
-          x
+          X
         </button>
       </div>
 
       <div className="filter-content">
-        <label className="filter-search">
-          Find active station
-          <input
-            type="search"
-            value={stationSearchTerm}
-            onChange={(event) => setStationSearchTerm(event.target.value)}
-            placeholder="station name"
-          />
-        </label>
+        <section className="filter-section">
+          <label className="filter-search">
+            Find active station
+            <input
+              type="search"
+              value={stationSearchTerm}
+              onChange={(event) => setStationSearchTerm(event.target.value)}
+              placeholder="station name"
+            />
+          </label>
 
-        <div className="filter-section">
+
           <div className="filter-title">
             <span>Ground stations</span>
             <strong>{selectedIds.size || 'All'}</strong>
@@ -197,28 +198,31 @@ export const FilterSidebar = ({
               <p className="filter-empty">No active stations match this filter.</p>
             )}
           </div>
-        </div>
+        </section>
 
-        <label className="filter-search">
-          Search satellite by name
-          <input
-            type="search"
-            value={satelliteFilters.displayName}
-            onChange={(event) => updateSatelliteFilter('displayName', event.target.value)}
-            placeholder="Display name"
-          />
-        </label>
+        <section className="filter-section">
+          <label className="filter-search">
+            Search satellite by name
+            <input
+              type="search"
+              value={satelliteFilters.displayName}
+              onChange={(event) => updateSatelliteFilter('displayName', event.target.value)}
+              placeholder="Display name"
+            />
+          </label>
 
-        <label className="filter-search">
-          Buscar satelite por NORAD
-          <input
-            type="search"
-            inputMode="numeric"
-            value={satelliteFilters.noradId}
-            onChange={(event) => updateSatelliteFilter('noradId', event.target.value)}
-            placeholder="NORAD ID"
-          />
-        </label>
+          <label className="filter-search">
+            Search satellite by NORAD ID
+            <input
+              type="search"
+              inputMode="numeric"
+              value={satelliteFilters.noradId}
+              onChange={(event) => updateSatelliteFilter('noradId', event.target.value)}
+              placeholder="NORAD ID"
+            />
+          </label>
+
+        </section>
 
         <div className="filter-section">
           <div className="filter-title">
@@ -231,14 +235,22 @@ export const FilterSidebar = ({
           </div>
 
           <div className="checkbox-group checkbox-group--compact">
+            {hasActiveSatelliteSearch && (
+              <SatellitePagination
+                pagination={satellitePagination}
+                currentPage={satellitePage}
+                pageSize={satelliteLimit}
+                onPageChange={onSatellitePageChange}
+                onPageSizeChange={onSatelliteLimitChange}
+              />
+            )}
             {isSearchingSatellites && <p className="filter-empty">Searching satellites...</p>}
 
             {!isSearchingSatellites &&
               satellites.map((satellite) => (
                 <div className="checkbox-label checkbox-label--readonly" key={satellite.noradId || satellite.id}>
                   <span>
-                    {satellite.displayName || `NORAD ${satellite.noradId}`}
-                    <small>NORAD {satellite.noradId || 'N/A'}</small>
+                    {satellite.noradId || 'N/A'} - {satellite.displayName || `Unknown`}
                   </span>
                 </div>
               ))}
@@ -248,15 +260,7 @@ export const FilterSidebar = ({
             )}
           </div>
 
-          {hasActiveSatelliteSearch && (
-            <SatellitePagination
-              pagination={satellitePagination}
-              currentPage={satellitePage}
-              pageSize={satelliteLimit}
-              onPageChange={onSatellitePageChange}
-              onPageSizeChange={onSatelliteLimitChange}
-            />
-          )}
+
         </div>
 
         <div className="filter-actions">
