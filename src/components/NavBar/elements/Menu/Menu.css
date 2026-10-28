@@ -95,27 +95,21 @@
 }
 
 .menu-link {
-  background: rgba(15, 23, 42, 0.64);
-  border: 1px solid rgba(51, 65, 85, 0.76);
-  border-radius: 8px;
+    background: rgba(15, 23, 42, 0.64);
+    border: 1px solid rgba(51, 65, 85, 0.76);
+    border-radius: 8px;
 }
+
 .menu a {
     display: flex;
     align-items: center;
     gap: 12px;
-
     padding: 14px 16px;
-
     text-decoration: none;
-
     color: #e2e8f0;
-
     background: rgba(15, 23, 42, 0.64);
-
     border: 1px solid rgba(51, 65, 85, 0.76);
-
-    border-radius: 8px;
-
+    /* border-radius: 8px; */
     transition:
         border-color 160ms ease,
         background 160ms ease,
@@ -127,7 +121,7 @@
 
     background: rgba(30, 41, 59, 0.92);
 
-    transform: translateX(-3px);
+    /* transform: translateX(-3px); */
 }
 
 .menu a:active {

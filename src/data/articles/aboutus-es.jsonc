@@ -1,0 +1,132 @@
+// About SCORPIO. Pages 0–4: overview; pages 10+collaborator.id: biographies. Same article block contract.
+{
+  "articles_content": [
+    {
+      "page_num": 0,
+      "type": "h1",
+      "content": "Acerca de SCORPIO"
+    },
+    {
+      "page_num": 0,
+      "type": "text",
+      "content": "Estudiamos la conectividad satelital para el Internet de las Cosas, integrando mediciones de radio, estaciones terrestres replicables y una plataforma abierta edge-to-cloud."
+    },
+    {
+      "page_num": 1,
+      "type": "h2",
+      "content": "De las señales satelitales al conocimiento compartido"
+    },
+    {
+      "page_num": 1,
+      "type": "text",
+      "content": "SCORPIO significa Satellite COmmunication and Radio Propagation for the Internet Of Things. Liderado por la UC Chile, con colaboradores en Francia y Brasil, busca caracterizar y modelar la propagación LoRa satelital en la diversa geografía de Chile."
+    },
+    {
+      "page_num": 1,
+      "type": "text",
+      "content": "Nuestra investigación combina recepción experimental, análisis de calidad de señal y simulación. El objetivo es comprender y diseñar enlaces IoT directos al satélite confiables, incluyendo zonas remotas con conectividad terrestre limitada."
+    },
+    {
+      "page_num": 2,
+      "type": "h2",
+      "content": "Una infraestructura, del borde a la nube"
+    },
+    {
+      "page_num": 2,
+      "type": "text",
+      "content": "Las estaciones terrestres utilizan una Raspberry Pi, un receptor de radio definido por software, un amplificador de bajo ruido y una antena. Los servicios locales procesan y almacenan temporalmente los paquetes recibidos; luego los exportan y sincronizan con la plataforma central SCORPIO cuando hay conectividad."
+    },
+    {
+      "page_num": 2,
+      "type": "text",
+      "content": "Este sitio reúne estaciones, satélites y paquetes recibidos para su exploración e investigación. El prototipo de software constituye una base para futuras campañas de medición y su replicación en nuevos sitios."
+    },
+    {
+      "page_num": 2,
+      "type": "link",
+      "content": "[Instala una estación terrestre →](/documentation?lang=es)"
+    },
+    {
+      "page_num": 2,
+      "type": "img",
+      "content": "La señal satelital y la antena alimentan Scorpio Edge infrastructure, en gris: LNA, SDR y Raspberry Pi. HTTP / REST conecta con Scorpio Cloud infrastructure, en azul: Backend Service y Web interface.",
+      "img_src": "/images/aboutus/scorpio-edge-cloud.png",
+      "img_legend": "SCORPIO: desde la recepción satelital hasta la plataforma en la nube. Selecciona la imagen para ampliarla."
+    },
+    {
+      "page_num": 3,
+      "type": "h2",
+      "content": "Equipos de investigación"
+    },
+    {
+      "page_num": 3,
+      "type": "text",
+      "content": "SCORPIO conecta al IoT-UC Research Lab y LATINA-UC de la Pontificia Universidad Católica de Chile con el equipo Agora de Inria en Lyon y la Universidade Federal de Santa Catarina en Brasil. Los equipos vinculan adquisición experimental, modelado de propagación y simulación."
+    },
+    {
+      "page_num": 4,
+      "type": "h2",
+      "content": "Investigación relacionada y software abierto"
+    },
+    {
+      "page_num": 4,
+      "type": "text",
+      "content": "El modelado de SCORPIO se conecta con FLoRaSAT y las herramientas de simulación de UFSC. La colaboración también se apoya en DORSAL-IoT, una iniciativa relacionada que estudia las comunicaciones LoRaWAN directas al satélite."
+    },
+    {
+      "page_num": 4,
+      "type": "link",
+      "content": "[Conoce DORSAL-IoT ↗](https://dorsaliot.space/)"
+    },
+    {
+      "page_num": 4,
+      "type": "link",
+      "content": "[Código fuente de SCORPIO ↗](https://github.com/scorpio-iotuc/Scorpio-Project)"
+    },
+    {
+      "page_num": 10,
+      "type": "text",
+      "content": "Desarrolló la infraestructura edge-to-cloud para almacenar paquetes localmente, sincronizarlos y visualizarlos en la web. Actual mantenedor de SCORPIO."
+    },
+    {
+      "page_num": 11,
+      "type": "text",
+      "content": "Dirige IoT-UC y la orientación científica de SCORPIO, conectando mediciones experimentales, modelado del canal inalámbrico y simulación."
+    },
+    {
+      "page_num": 12,
+      "type": "text",
+      "content": "Dirige LATINA-UC y colidera el trabajo experimental, aportando experiencia en sistemas de radiofrecuencia, calibración de estaciones y adquisición inalámbrica de datos."
+    },
+    {
+      "page_num": 13,
+      "type": "text",
+      "content": "Aporta experiencia en redes espaciales e IoT directo al satélite, conectando las mediciones de propagación con la simulación en FLoRaSAT."
+    },
+    {
+      "page_num": 14,
+      "type": "text",
+      "content": "Aporta experiencia en comunicaciones inalámbricas y procesamiento de señales al modelado analítico y la evaluación del desempeño de IoT satelital mediante simulación."
+    },
+    {
+      "page_num": 15,
+      "type": "text",
+      "content": "Colidera la ingeniería de la infraestructura experimental de recepción, incluyendo Raspberry Pi y SDR, decodificación LoRa y pruebas de recepción."
+    },
+    {
+      "page_num": 16,
+      "type": "text",
+      "content": "Colidera la implementación de la estación y las pruebas experimentales, integrando hardware y herramientas de procesamiento de señales para la recepción LoRa."
+    },
+    {
+      "page_num": 17,
+      "type": "text",
+      "content": "Desarrolla soluciones de alimentación conectadas a la red y autónomas para desplegar estaciones terrestres en distintos entornos."
+    },
+    {
+      "page_num": 18,
+      "type": "text",
+      "content": "Explora una antena LoRa tribanda para 137, 433 y 915 MHz. Su investigación de pregrado estudia la predicción y corrección Doppler y el seguimiento de pasadas satelitales."
+    }
+  ]
+}

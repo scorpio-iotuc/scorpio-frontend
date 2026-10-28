@@ -2,6 +2,7 @@ import MenuIcon from '../MenuIcon/MenuIcon.jsx';
 import { useNavbarContext } from "../../useNavbarContext";
 import { useSignupMode } from '../../../../hooks/useSignupMode';
 import './Menu.css';
+import {Link} from 'react-router';
 
 export const Menu = () => {
     const { isOpen } = useNavbarContext();
@@ -20,9 +21,10 @@ const MenuItems = () => {
     return (
         <>
             <div className="menu-section">
-                <h3>Cuenta</h3>
-                <a href="/login">Login</a>
-                {showRegister && <a href="/signup">Register</a>}
+                <Link to="/login">Login</Link>
+                {showRegister && <Link to="/signup">Register</Link>}
+                <Link to="/documentation">Documentation</Link>
+                <Link to="/about-us">About us</Link>
             </div>
         </>
     );

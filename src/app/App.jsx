@@ -1,5 +1,4 @@
 
-import { AppProvider } from './AppContext'
 import LandingPage from '../pages/LandingPage/LandingPage'
 import Login from '../pages/Login/Login'
 import SignUp from '../pages/SignUp/SignUp'
@@ -56,11 +55,7 @@ function App() {
     return <LandingPage />
   }
 
-  return (
-    <AppProvider>
-      {renderPage()}
-    </AppProvider>
-  )
+  return renderPage()
 }
 
 export default App

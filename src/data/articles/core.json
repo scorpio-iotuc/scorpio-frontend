@@ -1,0 +1,311 @@
+{
+  "collaborators": [
+    {
+      "id": 0,
+      "name": "Pedro Pablo Zavala Tejos",
+      "institution": "uc",
+      "role": {
+        "en": "Software engineer",
+        "es": "Ingeniero de software"
+      },
+      "team-role": {
+        "en": "Graduate researcher",
+        "es": "Investigador graduado"
+      },
+      "team_group": "researchers",
+      "nationality": {
+        "en": "Chilean",
+        "es": "Chilena",
+        "flag": "🇨🇱"
+      },
+      "image": "/images/team/pedrozavala.png",
+      "content_page": 10,
+      "email": "pedropablozavalat@uc.cl",
+      "profile": "https://pedrozavalat.github.io/",
+      "github": "@pedrozavalat"
+    },
+    {
+      "id": 1,
+      "name": "Miguel Gutiérrez Gaitán",
+      "institution": "uc",
+      "role": {
+        "en": "Assistant professor",
+        "es": "Profesor asistente"
+      },
+      "team-role": {
+        "en": "Principal investigator · Project coordinator",
+        "es": "Investigador principal · Coordinador del proyecto"
+      },
+      "team_group": "principal",
+      "nationality": {
+        "en": "Chilean",
+        "es": "Chilena",
+        "flag": "🇨🇱"
+      },
+      "image": "/images/team/miguelgutierrez.png",
+      "content_page": 11,
+      "email": "miguel.gutierrez@uc.cl",
+      "profile": "https://www.ing.uc.cl/academicos-e-investigadores/miguel-jose-gutierrez-gaitan/"
+    },
+    {
+      "id": 2,
+      "name": "Christian Oberli",
+      "institution": "uc",
+      "role": {
+        "en": "Associate professor",
+        "es": "Profesor asociado"
+      },
+      "team-role": {
+        "en": "Principal investigator",
+        "es": "Investigador principal"
+      },
+      "team_group": "principal",
+      "nationality": {
+        "en": "Chilean",
+        "es": "Chilena",
+        "flag": "🇨🇱"
+      },
+      "image": "/images/team/chrisitanoberli.png",
+      "content_page": 12,
+      "email": "obe@uc.cl",
+      "profile": "https://www.ing.uc.cl/academicos-e-investigadores/christian-robert-oberli-graf/"
+    },
+    {
+      "id": 3,
+      "name": "Juan A. Fraire",
+      "institution": "inria",
+      "role": {
+        "en": "Research scientist",
+        "es": "Investigador científico"
+      },
+      "team-role": {
+        "en": "International co-investigator",
+        "es": "Coinvestigador internacional"
+      },
+      "team_group": "international",
+      "nationality": {
+        "en": "French",
+        "es": "Francesa",
+        "flag": "🇫🇷"
+      },
+      "image": "/images/team/juanaffreire.png",
+      "content_page": 13,
+      "email": "juan.fraire@inria.fr",
+      "profile": "https://team.inria.fr/agora/juan-fraire/"
+    },
+    {
+      "id": 4,
+      "name": "Richard Demo Souza",
+      "institution": "ufsc",
+      "role": {
+        "en": "Full professor",
+        "es": "Profesor titular"
+      },
+      "team-role": {
+        "en": "International co-investigator",
+        "es": "Coinvestigador internacional"
+      },
+      "team_group": "international",
+      "nationality": {
+        "en": "Brazilian",
+        "es": "Brasileña",
+        "flag": "🇧🇷"
+      },
+      "image": "/images/team/richard-de-souza.png",
+      "content_page": 14,
+      "email": "richard.demo@ufsc.br",
+      "profile": "https://richarddemosouza.paginas.ufsc.br/"
+    },
+    {
+      "id": 5,
+      "name": "Sebastián Silva",
+      "institution": "uc",
+      "role": {
+        "en": "Research engineer",
+        "es": "Ingeniero de investigación"
+      },
+      "team-role": {
+        "en": "Lead engineer",
+        "es": "Ingeniero líder"
+      },
+      "team_group": "lead",
+      "nationality": {
+        "en": "Chilean",
+        "es": "Chilena",
+        "flag": "🇨🇱"
+      },
+      "image": "/images/team/sebastiansilva.png",
+      "content_page": 15,
+      "email": "seba.si@uc.cl",
+      "profile": "https://www.linkedin.com/in/sebastian-silva-silva/"
+    },
+    {
+      "id": 6,
+      "name": "Moisés Donoso",
+      "institution": "uc",
+      "role": {
+        "en": "Research engineer",
+        "es": "Ingeniero de investigación"
+      },
+      "team-role": {
+        "en": "Lead engineer",
+        "es": "Ingeniero líder"
+      },
+      "team_group": "lead",
+      "nationality": {
+        "en": "Chilean",
+        "es": "Chilena",
+        "flag": "🇨🇱"
+      },
+      "image": "/images/team/moisesdonoso.png",
+      "content_page": 16,
+      "email": "moiss.donoso@uc.cl",
+      "profile": "https://www.linkedin.com/in/mois%C3%A9s-donoso-far%C3%ADas-41188333a/"
+    },
+    {
+      "id": 7,
+      "name": "Santiago Gómez",
+      "institution": "uc",
+      "role": {
+        "en": "Research engineer",
+        "es": "Ingeniero de investigación"
+      },
+      "team-role": {
+        "en": "Associate engineer",
+        "es": "Ingeniero asociado"
+      },
+      "team_group": "associate",
+      "nationality": {
+        "en": "Chilean",
+        "es": "Chilena",
+        "flag": "🇨🇱"
+      },
+      "image": "/images/team/santiagogomez.png",
+      "content_page": 17
+    },
+    {
+      "id": 8,
+      "name": "Santiago Arntz",
+      "institution": "uc",
+      "role": {
+        "en": "Electrical engineering student",
+        "es": "Estudiante de Ingeniería Eléctrica"
+      },
+      "team-role": {
+        "en": "Undergraduate researcher",
+        "es": "Investigador de pregrado"
+      },
+      "team_group": "researchers",
+      "nationality": {
+        "en": "Chilean",
+        "es": "Chilena",
+        "flag": "🇨🇱"
+      },
+      "image": "/images/team/santiagoarntz.png",
+      "content_page": 18,
+      "email": "saarntz@uc.cl"
+    }
+  ],
+  "articles": [
+    {
+      "name": "Installation",
+      "link": "/documentation",
+      "description": "This article provides a comprehensive guide on how to install the software, including prerequisites, step-by-step instructions, and troubleshooting tips.",
+      "last_edited": "2026-10-27",
+      "author_indexes": [
+        0
+      ],
+      "path": "documentation",
+      "languages": [
+        "es",
+        "en"
+      ]
+    },
+    {
+      "path": "aboutus",
+      "languages": [
+        "es",
+        "en"
+      ],
+      "name": "About us",
+      "link": "/about-us",
+      "description": "SCORPIO research, infrastructure and people.",
+      "last_edited": "2026-10-28",
+      "author_indexes": [
+        0
+      ]
+    }
+  ],
+  "institutions": {
+    "uc": {
+      "name": "Pontificia Universidad Católica de Chile",
+      "short_name": "UC Chile",
+      "country": {
+        "en": "Chile",
+        "es": "Chile"
+      },
+      "city": "Santiago",
+      "logo": "/images/team/puc.png",
+      "url": "https://www.uc.cl/"
+    },
+    "inria": {
+      "name": "Inria · Agora, Inria / INSA Lyon",
+      "short_name": "Inria Lyon",
+      "country": {
+        "en": "France",
+        "es": "Francia"
+      },
+      "city": "Lyon",
+      "logo": null,
+      "url": "https://team.inria.fr/agora/"
+    },
+    "ufsc": {
+      "name": "Universidade Federal de Santa Catarina",
+      "short_name": "UFSC",
+      "country": {
+        "en": "Brazil",
+        "es": "Brasil"
+      },
+      "city": "Florianópolis",
+      "logo": "/images/team/ufsc.png",
+      "url": "https://ufsc.br/"
+    }
+  },
+  "team_groups": [
+    {
+      "path": "principal",
+      "name": {
+        "en": "Principal investigators",
+        "es": "Investigadores principales"
+      }
+    },
+    {
+      "path": "international",
+      "name": {
+        "en": "International co-investigators",
+        "es": "Coinvestigadores internacionales"
+      }
+    },
+    {
+      "path": "lead",
+      "name": {
+        "en": "Lead engineers",
+        "es": "Ingenieros líderes"
+      }
+    },
+    {
+      "path": "associate",
+      "name": {
+        "en": "Associate engineers",
+        "es": "Ingenieros asociados"
+      }
+    },
+    {
+      "path": "researchers",
+      "name": {
+        "en": "Graduate and undergraduate researchers",
+        "es": "Investigadores graduados y de pregrado"
+      }
+    }
+  ]
+}
