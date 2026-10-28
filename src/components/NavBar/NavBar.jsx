@@ -1,4 +1,4 @@
-import { FaMagnifyingGlass, FaRightToBracket } from 'react-icons/fa6'
+import { FaMagnifyingGlass } from 'react-icons/fa6'
 import './NavBar.css'
 import { useState } from 'react'
 import { Menu, MenuToggle } from './elements/Menu/Menu.jsx'
