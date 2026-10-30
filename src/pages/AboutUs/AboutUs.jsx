@@ -6,7 +6,7 @@ import {
   FaArrowUpRightFromSquare,
   FaEnvelope,
 } from "react-icons/fa6";
-import Navbar from "../../components/Navbar/NavBar.jsx";
+import Navbar from "../../components/NavBar/NavBar.jsx";
 import ArticleBlock from "../../components/Article/ArticleBlock.jsx";
 import { useAppContext } from "../../app/useAppContext";
 import { parseJsonc } from "../../utils/parseJsonc";
