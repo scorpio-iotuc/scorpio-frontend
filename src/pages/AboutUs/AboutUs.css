@@ -134,8 +134,8 @@
 }
 
 .about-institution img {
-  width: 42px;
-  height: 52px;
+  width: 6rem;
+  height: 5rem;
   object-fit: contain;
 }
 
@@ -225,8 +225,8 @@
 }
 
 .about-affiliation img {
-  width: 36px;
-  height: 44px;
+  width: 86px;
+  height: 54px;
   object-fit: contain;
 }
 
@@ -246,6 +246,9 @@
   width: 112px;
   height: 112px;
   margin: 8px 0 20px;
+  border-radius: 50%;
+  border: 1px solid var(--docs-border);
+  box-shadow: 0 0 0px 6px var(--docs-border);
 }
 
 .about-portrait img {

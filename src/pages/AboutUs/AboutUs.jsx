@@ -175,7 +175,7 @@ export default function AboutUs() {
                   {institution.logo ? (
                     <img src={institution.logo} alt="" />
                   ) : (
-                    <span className="about-inria-wordmark">Inria</span>
+                    <span></span>
                   )}
                   <span>
                     <strong>{institution.short_name}</strong>

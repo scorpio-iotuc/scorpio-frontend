@@ -36,7 +36,7 @@
       "type": "img",
       "content": "Satellite signal and antenna feeding the gray Scorpio Edge infrastructure: LNA, SDR and Raspberry Pi. HTTP / REST connects it to the blue Scorpio Cloud infrastructure: Backend Service and Web interface.",
       "img_src": "/images/aboutus/scorpio-edge-cloud.png",
-      "img_legend": "SCORPIO: from satellite reception to the cloud platform. Select the image to enlarge."
+      "img_legend": "SCORPIO: from satellite reception to the cloud platform."
     },
     {
       "page_num": 2,
@@ -68,16 +68,16 @@
       "type": "h2",
       "content": "Related research and open software"
     },
-    {
-      "page_num": 4,
-      "type": "text",
-      "content": "SCORPIO’s modeling work connects with FLoRaSAT and UFSC simulation tools. The collaboration also builds on DORSAL-IoT, a related initiative studying direct-to-satellite LoRaWAN communications."
-    },
-    {
-      "page_num": 4,
-      "type": "link",
-      "content": "[Explore DORSAL-IoT ↗](https://dorsaliot.space/)"
-    },
+    // {
+    //   "page_num": 4,
+    //   "type": "text",
+    //   "content": "SCORPIO’s modeling work connects with FLoRaSAT and UFSC simulation tools. The collaboration also builds on DORSAL-IoT, a related initiative studying direct-to-satellite LoRaWAN communications."
+    // },
+    // {
+    //   "page_num": 4,
+    //   "type": "link",
+    //   "content": "[Explore DORSAL-IoT ↗](https://dorsaliot.space/)"
+    // },
     {
       "page_num": 4,
       "type": "link",

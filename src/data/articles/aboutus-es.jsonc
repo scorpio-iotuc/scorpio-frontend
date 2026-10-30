@@ -68,16 +68,16 @@
       "type": "h2",
       "content": "Investigación relacionada y software abierto"
     },
-    {
-      "page_num": 4,
-      "type": "text",
-      "content": "El modelado de SCORPIO se conecta con FLoRaSAT y las herramientas de simulación de UFSC. La colaboración también se apoya en DORSAL-IoT, una iniciativa relacionada que estudia las comunicaciones LoRaWAN directas al satélite."
-    },
-    {
-      "page_num": 4,
-      "type": "link",
-      "content": "[Conoce DORSAL-IoT ↗](https://dorsaliot.space/)"
-    },
+    // {
+    //   "page_num": 4,
+    //   "type": "text",
+    //   "content": "El modelado de SCORPIO se conecta con FLoRaSAT y las herramientas de simulación de UFSC. La colaboración también se apoya en DORSAL-IoT, una iniciativa relacionada que estudia las comunicaciones LoRaWAN directas al satélite."
+    // },
+    // {
+    //   "page_num": 4,
+    //   "type": "link",
+    //   "content": "[Conoce DORSAL-IoT ↗](https://dorsaliot.space/)"
+    // },
     {
       "page_num": 4,
       "type": "link",

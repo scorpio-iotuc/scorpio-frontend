@@ -9,8 +9,8 @@
         "es": "Ingeniero de software"
       },
       "team-role": {
-        "en": "Graduate researcher",
-        "es": "Investigador graduado"
+        "en": "Researcher",
+        "es": "Investigador"
       },
       "team_group": "researchers",
       "nationality": {
@@ -33,8 +33,8 @@
         "es": "Profesor asistente"
       },
       "team-role": {
-        "en": "Principal investigator · Project coordinator",
-        "es": "Investigador principal · Coordinador del proyecto"
+        "en": "Principal investigator / Project coordinator",
+        "es": "Investigador principal / Coordinador del proyecto"
       },
       "team_group": "principal",
       "nationality": {
@@ -192,8 +192,8 @@
         "es": "Estudiante de Ingeniería Eléctrica"
       },
       "team-role": {
-        "en": "Undergraduate researcher",
-        "es": "Investigador de pregrado"
+        "en": "Researcher",
+        "es": "Investigador"
       },
       "team_group": "researchers",
       "nationality": {
@@ -245,18 +245,18 @@
         "es": "Chile"
       },
       "city": "Santiago",
-      "logo": "/images/team/puc.png",
+      "logo": "/images/team/uc.png",
       "url": "https://www.uc.cl/"
     },
     "inria": {
-      "name": "Inria · Agora, Inria / INSA Lyon",
+      "name": "Inria / INSA Lyon",
       "short_name": "Inria Lyon",
       "country": {
         "en": "France",
         "es": "Francia"
       },
       "city": "Lyon",
-      "logo": null,
+      "logo": "/images/team/inria.png",
       "url": "https://team.inria.fr/agora/"
     },
     "ufsc": {
@@ -294,17 +294,17 @@
       }
     },
     {
+      "path": "researchers",
+      "name": {
+        "en": "Undergraduate researcher",
+        "es": "Investigadores de pregrado"
+      }
+    },
+    {
       "path": "associate",
       "name": {
         "en": "Associate engineers",
         "es": "Ingenieros asociados"
-      }
-    },
-    {
-      "path": "researchers",
-      "name": {
-        "en": "Graduate and undergraduate researchers",
-        "es": "Investigadores graduados y de pregrado"
       }
     }
   ]

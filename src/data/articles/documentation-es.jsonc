@@ -31,8 +31,7 @@
       "type": "ol",
       "content": "",
       "list_content": [
-        "[Scorpio Developers — Parte 1](page4.md) *(próximamente)*",
-        "[Scorpio Developers — Parte 2](page5.md) *(próximamente)*"
+        "[Scorpio Developers — Parte 1](page4.md) *(próximamente)*"
       ]
     },
     {
@@ -61,7 +60,7 @@
       "page_num": 1,
       "type": "img",
       "content": "Materiales necesarios para instalar la infraestructura de Scorpio",
-      "img_src": "/images/documentation/materials.png",
+      "img_src": "/images/documentation/materials_minimalist.png",
       "img_legend": "Figura 1. Materiales necesarios para la instalación."
     },
     {
@@ -251,7 +250,7 @@
       "page_num": 1,
       "type": "img",
       "content": "Montaje final de la Raspberry Pi, el LNA y el SDR",
-      "img_src": "/images/documentation/final_arch.png",
+      "img_src": "/images/documentation/final_arch_minimalist.png",
       "img_legend": "Figura 11. Montaje físico final de la infraestructura."
     },
     {

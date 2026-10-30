@@ -54,6 +54,7 @@ export default function Documentation() {
   const t = labels[language];
   const [query, setQuery] = useState("");
   const [active, setActive] = useState("page-0");
+  const [expandedPages, setExpandedPages] = useState(() => new Set());
   const blocks = content[language].articles_content;
   const pages = useMemo(() => {
     const groups = [];
@@ -189,6 +190,7 @@ export default function Documentation() {
         </div>
       </header>
       <div className="docs-layout">
+        {/* Sidebar */}
         <aside className="docs-sidebar">
           <label className="docs-search">
             <span>{t.search}</span>
@@ -208,27 +210,40 @@ export default function Documentation() {
               <div className="docs-nav-group" key={page.number}>
                 <a
                   className="docs-page-link"
+                  aria-expanded={expandedPages.has(page.number)}
                   aria-current={
                     active === `page-${page.number}` ? "location" : undefined
                   }
                   href={`#page-${page.number}`}
+                  onClick={() => {
+                    setExpandedPages((current) => {
+                      const next = new Set(current);
+                      if (next.has(page.number)) {
+                        next.delete(page.number);
+                      } else {
+                        next.add(page.number);
+                      }
+                      return next;
+                    });
+                  }}
                 >
                   {page.blocks.find((block) => block.type === "h1")?.content}
                 </a>
-                {page.blocks
-                  .filter((block) => block.type === "h2" || block.type === "h3")
-                  .map((block) => (
-                    <a
-                      className={`docs-section-link docs-section-link--${block.type}`}
-                      aria-current={
-                        active === block.id ? "location" : undefined
-                      }
-                      key={block.id}
-                      href={`#${block.id}`}
-                    >
-                      {block.content}
-                    </a>
-                  ))}
+                {expandedPages.has(page.number) &&
+                  page.blocks
+                    .filter((block) => block.type === "h2" || block.type === "h3")
+                    .map((block) => (
+                      <a
+                        className={`docs-section-link docs-section-link--${block.type}`}
+                        aria-current={
+                          active === block.id ? "location" : undefined
+                        }
+                        key={block.id}
+                        href={`#${block.id}`}
+                      >
+                        {block.content}
+                      </a>
+                    ))}
               </div>
             ))}
           </nav>
@@ -241,6 +256,7 @@ export default function Documentation() {
             {t.source} ↗
           </a>
         </aside>
+        {/* Main document */}
         <main className="docs-article" id="docs-content" tabIndex={-1}>
           <div className="docs-meta">
             {/* Last date edited */}

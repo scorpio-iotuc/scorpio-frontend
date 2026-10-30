@@ -13,6 +13,7 @@ import { useSatellites } from '../../hooks/useSatellites'
 import { useStationMonthlyPackets } from '../../hooks/useStationMonthlyPackets'
 import { useStationPackets } from '../../hooks/useStationPackets'
 import { useStations } from '../../hooks/useStations'
+import Issue from '../../components/Issue/Issue';
 import './LandingPage.css'
 
 export default function LandingPage() {
@@ -139,6 +140,11 @@ export default function LandingPage() {
     setSelectedPacket(null)
   }
 
+  const backendError = error || satelliteError || satelliteSearchError || statsError;
+  if (backendError) {
+    return <Issue />;
+  }
+  
   return (
     <main className="landing-page">
       <Navbar

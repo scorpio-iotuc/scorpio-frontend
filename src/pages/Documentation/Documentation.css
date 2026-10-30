@@ -182,6 +182,15 @@
   font-weight: 650;
   font-size: 13px;
 }
+.docs-sidebar .docs-page-link::after {
+  content: "＋";
+  float: right;
+  color: var(--docs-muted);
+  font-weight: 400;
+}
+.docs-sidebar .docs-page-link[aria-expanded="true"]::after {
+  content: "−";
+}
 .docs-sidebar .docs-section-link {
   color: var(--docs-muted);
   padding-left: 16px;
