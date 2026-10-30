@@ -1,0 +1,215 @@
+.satellite-passes {
+  text-align: left;
+}
+.satellite-passes h3 {
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+.satellite-passes h3 span {
+  color: #22d3ee;
+  font-size: 0.78rem;
+}
+.satellite-passes__filters {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: end;
+  gap: 10px;
+  padding: 14px;
+}
+.satellite-passes__filters label {
+  display: grid;
+  flex: 1 1 120px;
+  gap: 6px;
+  min-width: 0;
+  color: #94a3b8;
+  font-size: 0.72rem;
+}
+.satellite-passes input {
+  box-sizing: border-box;
+  width: 100%;
+  min-width: 0;
+  min-height: 36px;
+  padding: 7px 9px;
+  color: #e2e8f0;
+  background: #0f172a;
+  border: 1px solid #334155;
+  border-radius: 6px;
+  font: inherit;
+}
+.satellite-passes button {
+  min-height: 34px;
+  padding: 6px 10px;
+  color: #22d3ee;
+  background: rgba(34, 211, 238, 0.08);
+  border: 1px solid rgba(34, 211, 238, 0.25);
+  border-radius: 6px;
+  cursor: pointer;
+  font: inherit;
+  font-size: 0.75rem;
+}
+.satellite-passes button:hover:not(:disabled) {
+  background: rgba(34, 211, 238, 0.18);
+}
+.satellite-passes button:focus-visible,
+.satellite-passes input:focus-visible {
+  outline: 2px solid #22d3ee;
+  outline-offset: 2px;
+}
+.satellite-passes button:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+.satellite-passes__heading {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 10px;
+  padding: 0 14px 10px;
+}
+.satellite-passes h4 {
+  margin: 0;
+  font-size: 0.82rem;
+}
+.satellite-passes__heading h4 {
+  color: #22d3ee;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+.satellite-passes__table-wrap {
+  margin: 0 14px;
+  max-height: 370px;
+  overflow: auto;
+  border: 1px solid #26364c;
+  border-radius: 6px;
+}
+.satellite-passes table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.74rem;
+}
+.satellite-passes__caption {
+  padding: 10px;
+  color: #94a3b8;
+  text-align: left;
+  font-size: 0.7rem;
+}
+.satellite-passes th {
+  position: sticky;
+  top: 0;
+  z-index: 1;
+  background: #172338;
+  color: #94a3b8;
+  text-align: left;
+  font-size: 0.65rem;
+  text-transform: uppercase;
+}
+.satellite-passes th,
+.satellite-passes td {
+  padding: 10px 8px;
+  border-bottom: 1px solid #26364c;
+  white-space: nowrap;
+}
+.satellite-passes td small {
+  display: block;
+  margin-top: 4px;
+  color: #94a3b8;
+  font-size: 0.65rem;
+}
+.satellite-passes tbody tr {
+  cursor: pointer;
+}
+.satellite-passes tbody tr:hover,
+.satellite-passes__selected {
+  background: rgba(34, 211, 238, 0.12);
+}
+.satellite-passes__pagination {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  padding: 14px;
+}
+.satellite-passes__pagination span {
+  color: #94a3b8;
+  font-size: 0.72rem;
+}
+.satellite-passes__details {
+  margin: 0 14px 14px;
+  padding: 14px;
+  background: #121f33;
+  border: 1px solid #26364c;
+  border-radius: 8px;
+}
+.satellite-passes__details > p {
+  color: #94a3b8;
+  font-size: 0.74rem;
+  line-height: 1.7;
+}
+.satellite-passes__charts {
+  display: grid;
+  gap: 18px;
+}
+.satellite-passes figure {
+  margin: 0;
+  min-width: 0;
+}
+.satellite-passes figcaption {
+  color: #93c5fd;
+  font-size: 0.8rem;
+  font-weight: 700;
+}
+.satellite-passes figcaption span {
+  color: #94a3b8;
+  font-size: 0.7rem;
+  font-weight: 400;
+}
+.satellite-passes svg {
+  display: block;
+  width: 100%;
+  height: auto;
+  overflow: visible;
+}
+.satellite-passes svg text {
+  fill: #94a3b8;
+  font-size: 11px;
+  font-family: var(--mono);
+}
+.satellite-passes__grid {
+  fill: none;
+  stroke: #334155;
+  stroke-width: 1;
+}
+.satellite-passes__path {
+  fill: none;
+  stroke: #22d3ee;
+  stroke-width: 2;
+  stroke-linejoin: round;
+}
+.satellite-passes__sample {
+  fill: #22d3ee;
+}
+.satellite-passes .satellite-passes__skyplot {
+  max-width: 300px;
+  margin: 8px auto 0;
+}
+.satellite-passes__aos {
+  fill: #34d399;
+}
+.satellite-passes__los {
+  fill: #fbbf24;
+}
+.satellite-passes__legend {
+  display: flex;
+  justify-content: center;
+  gap: 18px;
+  font-size: 0.7rem;
+}
+.satellite-passes__legend span:first-child {
+  color: #34d399;
+}
+.satellite-passes__legend span:last-child {
+  color: #fbbf24;
+}

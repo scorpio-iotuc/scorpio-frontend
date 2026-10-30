@@ -1,6 +1,7 @@
 import PacketList from './PacketList'
 import './StationPanel.css'
 import StationMonthlyChart from './StationMonthlyChart'
+import SatellitePassesPanel from './SatellitePassesPanel'
 
 const dateFormatter = new Intl.DateTimeFormat('en', {
   month: 'short',
@@ -144,8 +145,12 @@ export default function StationPanel({
             </dl>
           </section>
 
+          {/* Satellite passes panel */}
+          {isOpen && <SatellitePassesPanel key={station.uuid || station.id} stationUuid={station.uuid} />}
+
           <section className="station-panel__section">
             <h3>Statistics</h3>
+            {/* Chart stats - every packet retrieved from the station */}
             <StationMonthlyChart
               stats={monthlyPacketStats}
               isLoading={isLoadingMonthlyStats}

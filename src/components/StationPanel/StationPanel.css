@@ -23,6 +23,20 @@
   transform: translateX(0);
 }
 
+.satellite-panel {
+  width: 25vw;
+  left: 0;
+  right: auto;
+  border-left: 0;
+  border-right: 1px solid rgba(51, 65, 85, 0.88);
+  box-shadow: 28px 0 70px rgba(2, 6, 23, 0.62);
+  transform: translateX(-100%);
+}
+
+.satellite-panel.station-panel--open {
+  transform: translateX(0);
+}
+
 .station-panel__header {
   position: sticky;
   top: 0;

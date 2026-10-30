@@ -6,8 +6,9 @@ export default function AuthCard({ children}) {
       <div className="auth-card__signal" aria-hidden="true" />
       <div className="auth-card__header">
         <div className="auth-card__logo" aria-label="SCORPIO logo placeholder">
-          <span className="auth-card__logo-orbit" />
-          <span className="auth-card__logo-core">S</span>
+          {/* <span className="auth-card__logo-orbit" /> */}
+          <img src="/scorpio-icon.png" alt="SCORPIO" className="auth-card__logo-text" />
+          {/* <span className="auth-card__logo-core">S</span> */}
         </div>
         <div>
           <p className="auth-card__eyebrow">Iot UC</p>

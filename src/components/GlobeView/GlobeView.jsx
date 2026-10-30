@@ -2,11 +2,10 @@ import { useEffect, useMemo, useRef, useState } from 'react'
 import Globe from 'react-globe.gl'
 import * as THREE from 'three'
 import { createStationMarkerElement } from '../StationMarker/StationMarker'
-import { createDayNightMaterial, createFallbackGlobeMaterial, sunPositionAt } from './dayNightMaterial'
+import { createCartographicMaterial } from './cartographicMaterial'
 import { calculateSatelliteOrbitPath } from '../../utils/orbitUtils'
 import './GlobeView.css'
 
-const SPACE_BACKGROUND = '//unpkg.com/three-globe/example/img/night-sky.png'
 const DEFAULT_VIEW = { lat: -28, lng: -62, altitude: 1.9 }
 
 export default function GlobeView({
@@ -61,22 +60,15 @@ export default function GlobeView({
   }, [selectedOrbitSatellite, selectedSatelliteId])
 
   useEffect(() => {
-    let isMounted = true
-
-    createDayNightMaterial()
-      .then((material) => {
-        if (isMounted) {
-          setGlobeMaterial(material)
-        }
-      })
-      .catch(() => {
-        if (isMounted) {
-          setGlobeMaterial(createFallbackGlobeMaterial())
-        }
-      })
-
+    let material
+    const frame = window.requestAnimationFrame(() => {
+      material = createCartographicMaterial()
+      setGlobeMaterial(material)
+    })
     return () => {
-      isMounted = false
+      window.cancelAnimationFrame(frame)
+      material?.map.dispose()
+      material?.dispose()
     }
   }, [])
 
@@ -96,30 +88,14 @@ export default function GlobeView({
   }, [])
 
   useEffect(() => {
-    if (!globeMaterial) return undefined
-    if (!globeMaterial.uniforms?.sunPosition) return undefined
-
-    function updateSunPosition() {
-      globeMaterial.uniforms.sunPosition.value.set(...sunPositionAt(new Date()))
-    }
-
-    updateSunPosition()
-    const intervalId = window.setInterval(updateSunPosition, 60000)
-
-    return () => {
-      window.clearInterval(intervalId)
-    }
-  }, [globeMaterial])
-
-  useEffect(() => {
     const globe = globeRef.current
     if (!globe) return
 
     globe.pointOfView(DEFAULT_VIEW, 0)
 
     const controls = globe.controls()
-    controls.autoRotate = true
-    controls.autoRotateSpeed = 0.22
+    controls.autoRotate = false
+    controls.autoRotateSpeed = 0.0
     controls.enablePan = false
     controls.zoomSpeed = 0.42
     controls.minDistance = 230
@@ -161,7 +137,7 @@ export default function GlobeView({
     globe.pointOfView(DEFAULT_VIEW, 1400)
     const timeoutId = window.setTimeout(() => {
       if (globeRef.current) {
-        globeRef.current.controls().autoRotate = true
+        globeRef.current.controls().autoRotate = false
       }
     }, 1450)
 
@@ -178,12 +154,6 @@ export default function GlobeView({
     globe.pointOfView(DEFAULT_VIEW, 0)
   }
 
-  function handleZoom(pointOfView) {
-    if (!globeMaterial) return
-
-    globeMaterial.uniforms?.globeRotation?.value.set(pointOfView.lng, pointOfView.lat)
-  }
-
   function resetView() {
     onResetView?.()
   }
@@ -196,15 +166,15 @@ export default function GlobeView({
           width={dimensions.width}
           height={dimensions.height}
           globeMaterial={globeMaterial}
-          backgroundImageUrl={SPACE_BACKGROUND}
+          backgroundColor="#020617"
           showAtmosphere
           atmosphereColor="#22d3ee"
-          atmosphereAltitude={0.15}
+          atmosphereAltitude={0.035}
           htmlElementsData={stationMarkers}
           htmlLat="latitude"
           htmlLng="longitude"
-          htmlAltitude={0.018}
-          htmlTransitionDuration={180}
+          htmlAltitude={0.001}
+          htmlTransitionDuration={0}
           htmlElement={(station) =>
             createStationMarkerElement(
               station,
@@ -246,7 +216,6 @@ export default function GlobeView({
           pathStroke={1.8}
           pathResolution={2}
           onGlobeReady={handleGlobeReady}
-          onZoom={handleZoom}
         />
       )}
 
