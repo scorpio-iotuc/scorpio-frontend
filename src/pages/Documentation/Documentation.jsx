@@ -1,6 +1,6 @@
 import { useEffect, useMemo, useState } from "react";
 import { useLocation, useNavigate, useSearchParams } from "react-router";
-import Navbar from "../../components/Navbar/NavBar.jsx";
+import Navbar from "../../components/NavBar/NavBar.jsx";
 import ArticleBlock from "../../components/Article/ArticleBlock.jsx";
 import core from "../../data/articles/core.json";
 import english from "../../data/articles/documentation-en.jsonc?raw";
