@@ -1,4 +1,4 @@
-import { FaMagnifyingGlass, FaRightToBracket } from 'react-icons/fa6'
+import { FaMagnifyingGlass } from 'react-icons/fa6'
 import './NavBar.css'
 import { useState } from 'react'
 import { Menu, MenuToggle } from './elements/Menu/Menu.jsx'
@@ -22,6 +22,8 @@ export default function Navbar({
   onSatelliteFiltersChange,
   onSatellitePageChange,
   onSatelliteLimitChange,
+  showFilterSidebar = true,
+  showTelemetry = true,
 }) {
   const [isFilterOpen, setIsFilterOpen] = useState(false)
 
@@ -35,14 +37,14 @@ export default function Navbar({
         >
           <span>SCORPIO</span>
         </a>
-        <div className="mission-navbar__telemetry" aria-live="polite">
+        {showTelemetry && (<div className="mission-navbar__telemetry" aria-live="polite">
           {telemetryMessage && (
             <div className="mission-navbar__telemetry-track" key={telemetryMessageId || telemetryMessage}>
               <span className={`mission-navbar__pulse ${isPreviewData ? 'mission-navbar__pulse--preview' : ''}`} />
               <span>{telemetryMessage}</span>
             </div>
           )}
-        </div>
+        </div>)}
         <nav
           className="mission-navbar__actions"
           aria-label="Primary navigation"
@@ -53,39 +55,39 @@ export default function Navbar({
               <img src="/cps-rtc-horizontal-white.svg" alt="CPS-RTC" />
             </a>
           </div>
-          <button
-            type="button"
-            aria-label="Filters"
-            onClick={() => setIsFilterOpen(true)}
-          >
-            <FaMagnifyingGlass />
-          </button>
-          <a href="/login" aria-label="Login">
-            <FaRightToBracket />
-          </a>
+          {showFilterSidebar && (
+            <button
+              type="button"
+              aria-label="Filters"
+              onClick={() => setIsFilterOpen(true)}
+            >
+              <FaMagnifyingGlass />
+            </button>)
+          }
           <MenuToggle />
         </nav>
       </header>
 
       <Menu />
 
-      <FilterSidebar
-        isOpen={isFilterOpen}
-        onClose={() => setIsFilterOpen(false)}
-        stations={stations}
-        satellites={satellites}
-        selectedStationIds={selectedStationIds}
-        satelliteFilters={satelliteFilters}
-        isSearchingSatellites={isSearchingSatellites}
-        hasActiveSatelliteSearch={hasActiveSatelliteSearch}
-        satellitePagination={satellitePagination}
-        satellitePage={satellitePage}
-        satelliteLimit={satelliteLimit}
-        onSelectedStationIdsChange={onSelectedStationIdsChange}
-        onSatelliteFiltersChange={onSatelliteFiltersChange}
-        onSatellitePageChange={onSatellitePageChange}
-        onSatelliteLimitChange={onSatelliteLimitChange}
-      />
+      {showFilterSidebar && (
+        <FilterSidebar
+          isOpen={isFilterOpen}
+          onClose={() => setIsFilterOpen(false)}
+          stations={stations}
+          satellites={satellites}
+          selectedStationIds={selectedStationIds}
+          satelliteFilters={satelliteFilters}
+          isSearchingSatellites={isSearchingSatellites}
+          hasActiveSatelliteSearch={hasActiveSatelliteSearch}
+          satellitePagination={satellitePagination}
+          satellitePage={satellitePage}
+          satelliteLimit={satelliteLimit}
+          onSelectedStationIdsChange={onSelectedStationIdsChange}
+          onSatelliteFiltersChange={onSatelliteFiltersChange}
+          onSatellitePageChange={onSatellitePageChange}
+          onSatelliteLimitChange={onSatelliteLimitChange}
+        />)}
     </NavbarProvider>
   )
 }

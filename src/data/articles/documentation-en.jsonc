@@ -1,0 +1,893 @@
+// Documentation: ordered blocks; page 0 is the overview.
+{
+  "articles_content": [
+    {
+      "page_num": 0,
+      "type": "h1",
+      "content": "Scorpio local infrastructure"
+    },
+    {
+      "page_num": 0,
+      "type": "h2",
+      "content": "Installation"
+    },
+    {
+      "page_num": 0,
+      "type": "ol",
+      "content": "",
+      "list_content": [
+        "[Raspberry Pi OS installation and local access](page1.md)",
+        "[Installing Scorpio through the web interface or terminal](page2.md)",
+        "[Remote access with Tailscale](page3.md)"
+      ]
+    },
+    {
+      "page_num": 0,
+      "type": "h2",
+      "content": "Scorpio Developers"
+    },
+    {
+      "page_num": 0,
+      "type": "ol",
+      "content": "",
+      "list_content": [
+        "[Scorpio Developers — Part 1](page4.md) *(coming soon)*",
+        "[Scorpio Developers — Part 2](page5.md) *(coming soon)*"
+      ]
+    },
+    {
+      "page_num": 1,
+      "type": "h1",
+      "content": "1. Raspberry Pi OS installation and local access"
+    },
+    {
+      "page_num": 1,
+      "type": "h2",
+      "content": "Requirements"
+    },
+    {
+      "page_num": 1,
+      "type": "ul",
+      "content": "",
+      "list_content": [
+        "Compatible Raspberry Pi and power supply.",
+        "microSD card or SSD.",
+        "Computer with [Raspberry Pi Imager](https://www.raspberrypi.com/software/).",
+        "Connection to the same local network that the Raspberry Pi will use.",
+        "Antenna, LNA amplifier, and SDR receiver for the final assembly."
+      ]
+    },
+    {
+      "page_num": 1,
+      "type": "img",
+      "content": "Materials required to install the Scorpio infrastructure",
+      "img_src": "/images/documentation/materials.png",
+      "img_legend": "Figure 1. Materials required for installation."
+    },
+    {
+      "page_num": 1,
+      "type": "h2",
+      "content": "Prepare the boot media"
+    },
+    {
+      "page_num": 1,
+      "type": "text",
+      "content": "Open Raspberry Pi Imager<sup>1</sup> and complete the following steps. The screenshots use a Raspberry Pi 4 as an example."
+    },
+    {
+      "page_num": 1,
+      "type": "h3",
+      "content": "1. Select the Raspberry Pi"
+    },
+    {
+      "page_num": 1,
+      "type": "text",
+      "content": "Choose the exact model you will use."
+    },
+    {
+      "page_num": 1,
+      "type": "img",
+      "content": "Selecting Raspberry Pi 4 in Raspberry Pi Imager",
+      "img_src": "/images/documentation/installation/rpi-imager-select-device.png",
+      "img_legend": "Figure 2. Device selection."
+    },
+    {
+      "page_num": 1,
+      "type": "h3",
+      "content": "2. Select the operating system"
+    },
+    {
+      "page_num": 1,
+      "type": "text",
+      "content": "Select **Raspberry Pi OS (64-bit)**."
+    },
+    {
+      "page_num": 1,
+      "type": "img",
+      "content": "Selecting 64-bit Raspberry Pi OS",
+      "img_src": "/images/documentation/installation/rpi-imager-select-os.png",
+      "img_legend": "Figure 3. Operating system selection."
+    },
+    {
+      "page_num": 1,
+      "type": "h3",
+      "content": "3. Select the storage device"
+    },
+    {
+      "page_num": 1,
+      "type": "text",
+      "content": "Choose the microSD card or SSD where the system will be installed."
+    },
+    {
+      "page_num": 1,
+      "type": "cite",
+      "content": "**Warning:** this process erases all data on the selected device. Check its name and capacity before continuing."
+    },
+    {
+      "page_num": 1,
+      "type": "img",
+      "content": "Selecting a storage device in Raspberry Pi Imager",
+      "img_src": "/images/documentation/installation/rpi-imager-select-storage.png",
+      "img_legend": "Figure 4. Storage device selection."
+    },
+    {
+      "page_num": 1,
+      "type": "h3",
+      "content": "4. Set the hostname"
+    },
+    {
+      "page_num": 1,
+      "type": "text",
+      "content": "Use a recognizable name, such as `scorpio`. If the network supports mDNS, you will later be able to connect through `scorpio.local`."
+    },
+    {
+      "page_num": 1,
+      "type": "img",
+      "content": "Setting the scorpio hostname",
+      "img_src": "/images/documentation/installation/rpi-imager-hostname.png",
+      "img_legend": "Figure 5. Hostname configuration."
+    },
+    {
+      "page_num": 1,
+      "type": "h3",
+      "content": "5. Configure localization"
+    },
+    {
+      "page_num": 1,
+      "type": "text",
+      "content": "Select the appropriate country, time zone, and keyboard layout."
+    },
+    {
+      "page_num": 1,
+      "type": "img",
+      "content": "Country and time zone configuration",
+      "img_src": "/images/documentation/installation/rpi-imager-localisation.png",
+      "img_legend": "Figure 6. Localization settings."
+    },
+    {
+      "page_num": 1,
+      "type": "h3",
+      "content": "6. Create the user"
+    },
+    {
+      "page_num": 1,
+      "type": "text",
+      "content": "Set a username and a strong password. These credentials will be used later to connect over SSH."
+    },
+    {
+      "page_num": 1,
+      "type": "img",
+      "content": "Creating the scorpio user in Raspberry Pi Imager",
+      "img_src": "/images/documentation/installation/rpi-imager-user.png",
+      "img_legend": "Figure 7. User creation."
+    },
+    {
+      "page_num": 1,
+      "type": "h3",
+      "content": "7. Configure Wi-Fi"
+    },
+    {
+      "page_num": 1,
+      "type": "text",
+      "content": "Enter the network name, password, and country."
+    },
+    {
+      "page_num": 1,
+      "type": "img",
+      "content": "Wi-Fi network configuration",
+      "img_src": "/images/documentation/installation/rpi-imager-wifi.png",
+      "img_legend": "Figure 8. Wi-Fi configuration."
+    },
+    {
+      "page_num": 1,
+      "type": "h3",
+      "content": "8. Enable SSH"
+    },
+    {
+      "page_num": 1,
+      "type": "text",
+      "content": "Enable **Enable SSH**. To reproduce the configuration shown here, select password authentication."
+    },
+    {
+      "page_num": 1,
+      "type": "img",
+      "content": "Enabling SSH with password authentication",
+      "img_src": "/images/documentation/installation/rpi-imager-ssh.png",
+      "img_legend": "Figure 9. SSH remote access configuration."
+    },
+    {
+      "page_num": 1,
+      "type": "h3",
+      "content": "9. Write the image"
+    },
+    {
+      "page_num": 1,
+      "type": "text",
+      "content": "Review the settings and click **Write**. When the process finishes, safely remove the device, insert it into the Raspberry Pi, and power it on."
+    },
+    {
+      "page_num": 1,
+      "type": "img",
+      "content": "Writing Raspberry Pi OS to the selected device",
+      "img_src": "/images/documentation/installation/rpi-imager-writing.png",
+      "img_legend": "Figure 10. Writing the operating system."
+    },
+    {
+      "page_num": 1,
+      "type": "text",
+      "content": "<sup>1</sup> We recommend following Raspberry Pi's official guide to [install and use Raspberry Pi Imager](https://www.raspberrypi.com/documentation/computers/getting-started.html#imager-install)."
+    },
+    {
+      "page_num": 1,
+      "type": "h2",
+      "content": "Final assembly"
+    },
+    {
+      "page_num": 1,
+      "type": "text",
+      "content": "Connect the SDR to a Raspberry Pi USB port, then connect the antenna to the SDR through the LNA amplifier."
+    },
+    {
+      "page_num": 1,
+      "type": "img",
+      "content": "Final Raspberry Pi, LNA, and SDR assembly",
+      "img_src": "/images/documentation/final_arch.png",
+      "img_legend": "Figure 11. Final physical infrastructure assembly."
+    },
+    {
+      "page_num": 1,
+      "type": "h2",
+      "content": "Find the Raspberry Pi on the local network"
+    },
+    {
+      "page_num": 1,
+      "type": "text",
+      "content": "Wait a few minutes for the Raspberry Pi to boot. The computer and Raspberry Pi must be connected to the same network."
+    },
+    {
+      "page_num": 1,
+      "type": "text",
+      "content": "First, try the hostname configured earlier:"
+    },
+    {
+      "page_num": 1,
+      "type": "code",
+      "content": "ping scorpio.local"
+    },
+    {
+      "page_num": 1,
+      "type": "text",
+      "content": "Stop the command with `Ctrl+C`. If it responds, connect directly with `ssh scorpio@scorpio.local`."
+    },
+    {
+      "page_num": 1,
+      "type": "text",
+      "content": "If the hostname does not respond and you already know the IP address, skip the scan. Otherwise, install `nmap` on your computer and scan the local subnet. Replace `192.168.1.0/24` if your network uses a different range."
+    },
+    {
+      "page_num": 1,
+      "type": "text",
+      "content": "On macOS:"
+    },
+    {
+      "page_num": 1,
+      "type": "code",
+      "content": "brew install nmap"
+    },
+    {
+      "page_num": 1,
+      "type": "text",
+      "content": "On Debian or Ubuntu:"
+    },
+    {
+      "page_num": 1,
+      "type": "code",
+      "content": "sudo apt update\nsudo apt install -y nmap"
+    },
+    {
+      "page_num": 1,
+      "type": "text",
+      "content": "Run the scan:"
+    },
+    {
+      "page_num": 1,
+      "type": "code",
+      "content": "sudo nmap -sn 192.168.1.0/24 | grep -B 2 -i \"Raspberry\""
+    },
+    {
+      "page_num": 1,
+      "type": "text",
+      "content": "Example output:"
+    },
+    {
+      "page_num": 1,
+      "type": "code",
+      "content": "Nmap scan report for 192.168.1.100\nHost is up (0.018s latency).\nMAC Address: DC:A6:32:XX:XX:XX (Raspberry Pi Trading)"
+    },
+    {
+      "page_num": 1,
+      "type": "text",
+      "content": "Pinging the broadcast address may help refresh the local device table, but not every device will reply:"
+    },
+    {
+      "page_num": 1,
+      "type": "code",
+      "content": "ping 192.168.1.255"
+    },
+    {
+      "page_num": 1,
+      "type": "h2",
+      "content": "Connect over SSH"
+    },
+    {
+      "page_num": 1,
+      "type": "text",
+      "content": "Use the account created in Raspberry Pi Imager and the IP address you found:"
+    },
+    {
+      "page_num": 1,
+      "type": "code",
+      "content": "ssh <username>@<ip-address>"
+    },
+    {
+      "page_num": 1,
+      "type": "text",
+      "content": "For example:"
+    },
+    {
+      "page_num": 1,
+      "type": "code",
+      "content": "ssh scorpio@192.168.1.100"
+    },
+    {
+      "page_num": 1,
+      "type": "text",
+      "content": "On the first connection, SSH asks you to confirm the device identity. Verify the fingerprint when available, answer `yes`, and enter the configured password."
+    },
+    {
+      "page_num": 2,
+      "type": "h1",
+      "content": "2. Installing Scorpio"
+    },
+    {
+      "page_num": 2,
+      "type": "cite",
+      "content": "⚠️ The local web interface is still under development. If you find an error, report it in [Issues](https://github.com/ScorpioIoTUC/Scorpio-Project/issues)."
+    },
+    {
+      "page_num": 2,
+      "type": "text",
+      "content": "Scorpio can be installed through the web interface—the recommended option—or directly from the Raspberry Pi terminal."
+    },
+    {
+      "page_num": 2,
+      "type": "h2",
+      "content": "Option A: install through the web interface (recommended)"
+    },
+    {
+      "page_num": 2,
+      "type": "text",
+      "content": "With this method, install Scorpio CLI on the computer used to administer the Raspberry Pi. The UI connects over SSH and runs the installation on the remote device."
+    },
+    {
+      "page_num": 2,
+      "type": "h3",
+      "content": "1. Install Scorpio CLI"
+    },
+    {
+      "page_num": 2,
+      "type": "text",
+      "content": "On macOS, create a virtual environment and install Scorpio CLI with `pip` or `pip3`:"
+    },
+    {
+      "page_num": 2,
+      "type": "code",
+      "content": "python3 -m venv .venv\nsource .venv/bin/activate\npip install scorpio-cli\n# You can also use: pip3 install scorpio-cli"
+    },
+    {
+      "page_num": 2,
+      "type": "text",
+      "content": "On Linux, install `pipx` with your distribution's package manager:"
+    },
+    {
+      "page_num": 2,
+      "type": "code",
+      "content": "sudo apt update\nsudo apt install -y pipx\npipx ensurepath\npipx install scorpio-cli"
+    },
+    {
+      "page_num": 2,
+      "type": "text",
+      "content": "On Windows PowerShell:"
+    },
+    {
+      "page_num": 2,
+      "type": "code",
+      "content": "py -m venv .venv\n.\\.venv\\Scripts\\Activate.ps1\npython -m pip install scorpio-cli"
+    },
+    {
+      "page_num": 2,
+      "type": "text",
+      "content": "If Scorpio CLI is already installed, upgrade it using the same installation method:"
+    },
+    {
+      "page_num": 2,
+      "type": "code",
+      "content": "# macOS or a virtual environment\npip install --upgrade scorpio-cli\n# You can also use: pip3 install --upgrade scorpio-cli\n\n# Linux with pipx\npipx upgrade scorpio-cli"
+    },
+    {
+      "page_num": 2,
+      "type": "h3",
+      "content": "2. Open the interface and connect to the Raspberry Pi"
+    },
+    {
+      "page_num": 2,
+      "type": "text",
+      "content": "Run:"
+    },
+    {
+      "page_num": 2,
+      "type": "code",
+      "content": "scorpio ui"
+    },
+    {
+      "page_num": 2,
+      "type": "text",
+      "content": "The terminal will display:"
+    },
+    {
+      "page_num": 2,
+      "type": "code",
+      "content": "INFO:root:Server started at http://localhost:8000"
+    },
+    {
+      "page_num": 2,
+      "type": "text",
+      "content": "Open [http://localhost:8000](http://localhost:8000) and enter the following information:"
+    },
+    {
+      "page_num": 2,
+      "type": "ul",
+      "content": "",
+      "list_content": [
+        "**IP Address or hostname:** the Raspberry Pi hostname or IP address, such as `scorpio.local` or `192.168.1.100`.",
+        "**Username:** the account created in Raspberry Pi Imager, such as `scorpio`.",
+        "**Password:** the SSH password for that account."
+      ]
+    },
+    {
+      "page_num": 2,
+      "type": "text",
+      "content": "The computer and Raspberry Pi must be reachable through the same local network or Tailscale. Click **Access** to start the SSH connection."
+    },
+    {
+      "page_num": 2,
+      "type": "img",
+      "content": "Scorpio web interface SSH connection form",
+      "img_src": "/images/documentation/installation/scorpio-ui-ssh-login.png",
+      "img_legend": "Figure 1. Entering the Raspberry Pi SSH credentials."
+    },
+    {
+      "page_num": 2,
+      "type": "h3",
+      "content": "3. Start the installation"
+    },
+    {
+      "page_num": 2,
+      "type": "text",
+      "content": "After connecting, the main panel displays the **Ready to install** status. Make sure the Raspberry Pi has Internet access and enough free space, then click **Start installation**."
+    },
+    {
+      "page_num": 2,
+      "type": "img",
+      "content": "Scorpio panel ready to start the installation",
+      "img_src": "/images/documentation/installation/scorpio-ui-install-ready.png",
+      "img_legend": "Figure 2. Interface ready to start the installation."
+    },
+    {
+      "page_num": 2,
+      "type": "h3",
+      "content": "4. Monitor the installation"
+    },
+    {
+      "page_num": 2,
+      "type": "text",
+      "content": "The interface downloads the latest Scorpio-Project release, installs the low-level dependencies, and configures the Docker infrastructure. This process can take several minutes and produces many events."
+    },
+    {
+      "page_num": 2,
+      "type": "img",
+      "content": "Scorpio installation logs displayed in real time",
+      "img_src": "/images/documentation/installation/scorpio-ui-install-logs.png",
+      "img_legend": "Figure 3. Installation in progress with real-time events."
+    },
+    {
+      "page_num": 2,
+      "type": "text",
+      "content": "While the status is **Running**, do not close the interface or power off the Raspberry Pi. Click the `+` button for an event to view its details. If a problem occurs, the status changes to **Failed**, and the latest records help identify the cause. When it finishes successfully, the interface displays **Installation complete** with the **Completed** status."
+    },
+    {
+      "page_num": 2,
+      "type": "h3",
+      "content": "5. Reboot the Raspberry Pi and manage services"
+    },
+    {
+      "page_num": 2,
+      "type": "text",
+      "content": "After installation, the **Service status** card displays the infrastructure status and enables its controls."
+    },
+    {
+      "page_num": 2,
+      "type": "img",
+      "content": "Scorpio installation completed with services stopped",
+      "img_src": "/images/documentation/installation/scorpio-ui-install-completed.png",
+      "img_legend": "Figure 4. Installation completed and infrastructure controls available."
+    },
+    {
+      "page_num": 2,
+      "type": "text",
+      "content": "Click **Reboot Raspberry Pi** to apply all system changes. The SSH connection closes temporarily. Wait a few minutes, reopen the interface, and enter the access credentials again."
+    },
+    {
+      "page_num": 2,
+      "type": "text",
+      "content": "The service controls work as follows:"
+    },
+    {
+      "page_num": 2,
+      "type": "ul",
+      "content": "",
+      "list_content": [
+        "**Start:** starts the Scorpio Docker services.",
+        "**Stop:** stops the services without deleting persistent data.",
+        "**Refresh page:** requests the current status and reconnects the log display.",
+        "**Restart services:** click **Stop**, wait for the status to change to **Stopped**, and then click **Start**.",
+        "**Reboot Raspberry Pi:** restarts the entire operating system; it is not the same as restarting only the services."
+      ]
+    },
+    {
+      "page_num": 2,
+      "type": "text",
+      "content": "When the infrastructure is active, its status changes to **Running**, and **Service logs** displays container events. You can filter the logs by service and time range."
+    },
+    {
+      "page_num": 2,
+      "type": "img",
+      "content": "Scorpio infrastructure service and log panel",
+      "img_src": "/images/documentation/installation/scorpio-ui-services.png",
+      "img_legend": "Figure 5. Running services and infrastructure logs."
+    },
+    {
+      "page_num": 2,
+      "type": "h3",
+      "content": "6. Configure the Station Key and API"
+    },
+    {
+      "page_num": 2,
+      "type": "text",
+      "content": "After completing the installation, open **Settings** from the top navigation bar. Under **Station settings**, configure the connection used to publish Scorpio packets."
+    },
+    {
+      "page_num": 2,
+      "type": "img",
+      "content": "Scorpio Station Key and API URL settings form",
+      "img_src": "/images/documentation/installation/scorpio-ui-station-settings.png",
+      "img_legend": "Figure 6. Station Key and API base URL configuration."
+    },
+    {
+      "page_num": 2,
+      "type": "text",
+      "content": "Complete the fields using the following format. For the production environment, use the API base URL shown below:"
+    },
+    {
+      "page_num": 2,
+      "type": "code",
+      "content": "Station Key:\na121183c-1f93-4675-8a6c-58e075022db4.tmQ0fJwNGsMZYPJpoBTYZq_JE9X1LPqQotmquA7vAvY\n\nScorpio API URL:\nhttps://scorpio.cpsrtc.cl/api/"
+    },
+    {
+      "page_num": 2,
+      "type": "cite",
+      "content": "**Important:** you must have an active Station Key to complete this configuration. The key is provided when you create the station on the [Scorpio platform](https://scorpio.cpsrtc.cl/). Copy and securely retain the key provided during that process; the value above is included only as a format example and does not provide access to any station. Never publish an active Station Key in documentation, repositories, screenshots, or messages."
+    },
+    {
+      "page_num": 2,
+      "type": "text",
+      "content": "In **Scorpio API URL**, enter the current production API address: `https://scorpio.cpsrtc.cl/api/`. Click **Save** to store the configuration. The interface updates the Raspberry Pi `.env` file and automatically restarts the `data-export` service."
+    },
+    {
+      "page_num": 2,
+      "type": "text",
+      "content": "If `Could not load Scorpio API settings` appears before installing Scorpio, complete the installation first and reopen **Settings**."
+    },
+    {
+      "page_num": 2,
+      "type": "h3",
+      "content": "7. Check and install updates"
+    },
+    {
+      "page_num": 2,
+      "type": "text",
+      "content": "Open **Updates** from the top navigation bar to check the installed Scorpio CLI and Scorpio-Project versions. If everything is current, the interface displays **Scorpio CLI is already up to date**."
+    },
+    {
+      "page_num": 2,
+      "type": "img",
+      "content": "Scorpio updates page showing that the system is current",
+      "img_src": "/images/documentation/installation/scorpio-ui-updates-current.png",
+      "img_legend": "Figure 7. Scorpio CLI and Scorpio-Project with no pending updates."
+    },
+    {
+      "page_num": 2,
+      "type": "text",
+      "content": "Click **Check again** to repeat the check. If a newer version is available, the **Update** button appears."
+    },
+    {
+      "page_num": 2,
+      "type": "img",
+      "content": "Scorpio interface showing an available update",
+      "img_src": "/images/documentation/installation/scorpio-ui-update-available.png",
+      "img_legend": "Figure 8. Example of an available update."
+    },
+    {
+      "page_num": 2,
+      "type": "text",
+      "content": "Click **Update** and keep the window open until the process finishes. Then return to the main panel and confirm that the infrastructure remains **Running**."
+    },
+    {
+      "page_num": 2,
+      "type": "h2",
+      "content": "Option B: install from the terminal"
+    },
+    {
+      "page_num": 2,
+      "type": "text",
+      "content": "Connect to the Raspberry Pi over SSH and install Scorpio CLI with `pipx`:"
+    },
+    {
+      "page_num": 2,
+      "type": "code",
+      "content": "sudo apt update\nsudo apt install -y pipx\npipx ensurepath\nsource ~/.profile\npipx install scorpio-cli"
+    },
+    {
+      "page_num": 2,
+      "type": "text",
+      "content": "If it is already installed:"
+    },
+    {
+      "page_num": 2,
+      "type": "code",
+      "content": "pipx upgrade scorpio-cli"
+    },
+    {
+      "page_num": 2,
+      "type": "text",
+      "content": "Verify the installation and run setup:"
+    },
+    {
+      "page_num": 2,
+      "type": "code",
+      "content": "scorpio --help\nscorpio setup"
+    },
+    {
+      "page_num": 2,
+      "type": "text",
+      "content": "The command downloads the latest compatible release, runs `setup-host`, and prepares Docker with `setup-docker`. When it finishes, reboot and verify the services:"
+    },
+    {
+      "page_num": 2,
+      "type": "code",
+      "content": "sudo reboot\n# After reconnecting over SSH:\nscorpio status"
+    },
+    {
+      "page_num": 2,
+      "type": "h2",
+      "content": "Command reference"
+    },
+    {
+      "page_num": 2,
+      "type": "code",
+      "content": "scorpio ui             Start the setup web interface\nscorpio setup          Install dependencies and configure Docker\nscorpio setup-host     Install only the host dependencies\nscorpio setup-docker   Configure only the Docker infrastructure\nscorpio start          Build and start Scorpio services\nscorpio stop           Stop services and preserve stored data\nscorpio status         Show the current service status\nscorpio logs           Follow service logs\nscorpio build          Build the Docker images\nscorpio reset          Stop services and permanently remove Docker data\nscorpio connect2db     Connect to the Scorpio SQLite database"
+    },
+    {
+      "page_num": 2,
+      "type": "text",
+      "content": "`scorpio reset` removes the volumes containing MQTT data, logs, and the SQLite database, so it requires explicit confirmation."
+    },
+    {
+      "page_num": 2,
+      "type": "h2",
+      "content": "Upgrade or uninstall Scorpio CLI"
+    },
+    {
+      "page_num": 2,
+      "type": "code",
+      "content": "# macOS or a virtual environment\npip install --upgrade scorpio-cli\npip uninstall scorpio-cli\n\n# Linux with pipx\npipx upgrade scorpio-cli\npipx uninstall scorpio-cli"
+    },
+    {
+      "page_num": 3,
+      "type": "h1",
+      "content": "3. Remote access with Tailscale"
+    },
+    {
+      "page_num": 3,
+      "type": "text",
+      "content": "Tailscale creates a private network between the Raspberry Pi and your devices. It lets you connect over SSH from outside the local network without opening router ports."
+    },
+    {
+      "page_num": 3,
+      "type": "h2",
+      "content": "Enable Tailscale on the Raspberry Pi"
+    },
+    {
+      "page_num": 3,
+      "type": "text",
+      "content": "`scorpio setup` installs Tailscale and starts its service. Verify the installation:"
+    },
+    {
+      "page_num": 3,
+      "type": "code",
+      "content": "tailscale version\nsudo systemctl status tailscaled"
+    },
+    {
+      "page_num": 3,
+      "type": "text",
+      "content": "Press `q` to exit the service view. Then link the Raspberry Pi to your account:"
+    },
+    {
+      "page_num": 3,
+      "type": "code",
+      "content": "sudo tailscale up"
+    },
+    {
+      "page_num": 3,
+      "type": "text",
+      "content": "The command displays a one-time authentication URL:"
+    },
+    {
+      "page_num": 3,
+      "type": "code",
+      "content": "To authenticate, visit:\n\n    https://login.tailscale.com/a/..."
+    },
+    {
+      "page_num": 3,
+      "type": "text",
+      "content": "Open the link, sign in to Tailscale, and authorize the device. The terminal displays `Success.` when linking is complete."
+    },
+    {
+      "page_num": 3,
+      "type": "h2",
+      "content": "Get the Tailscale IP address"
+    },
+    {
+      "page_num": 3,
+      "type": "text",
+      "content": "Check the status and the IPv4 address assigned to the Raspberry Pi in its terminal:"
+    },
+    {
+      "page_num": 3,
+      "type": "code",
+      "content": "tailscale status\ntailscale ip -4"
+    },
+    {
+      "page_num": 3,
+      "type": "text",
+      "content": "The address has a format similar to `100.x.y.z`. Do not use a documentation example as the device's actual address."
+    },
+    {
+      "page_num": 3,
+      "type": "h2",
+      "content": "Prepare the client computer"
+    },
+    {
+      "page_num": 3,
+      "type": "text",
+      "content": "Install the [Tailscale application](https://tailscale.com/docs/install) on the computer you will connect from and sign in with an account that has access to the same Tailscale network."
+    },
+    {
+      "page_num": 3,
+      "type": "text",
+      "content": "If the application is already installed and connected, you do not need to reinstall Tailscale or run another terminal installer."
+    },
+    {
+      "page_num": 3,
+      "type": "h2",
+      "content": "Connect over SSH through Tailscale"
+    },
+    {
+      "page_num": 3,
+      "type": "text",
+      "content": "**With Tailscale active on both devices**, run the following command from the client computer:"
+    },
+    {
+      "page_num": 3,
+      "type": "code",
+      "content": "ssh <username>@<raspberry-tailscale-ip>"
+    },
+    {
+      "page_num": 3,
+      "type": "text",
+      "content": "For example:"
+    },
+    {
+      "page_num": 3,
+      "type": "code",
+      "content": "ssh scorpio@100.x.y.z"
+    },
+    {
+      "page_num": 3,
+      "type": "img",
+      "content": "Terminal showing that the Scorpio Docker infrastructure is running",
+      "img_src": "/images/documentation/installation/tailscale-status.png",
+      "img_legend": "Figure 1. Example of the Tailscale application on Mac OS. To connect using Tailscale, it must always be active"
+    },
+    {
+      "page_num": 3,
+      "type": "text",
+      "content": "Once the SSH connection has been established, you can run commands on the Raspberry Pi as if you were sitting in front of it."
+    },
+    {
+      "page_num": 3,
+      "type": "h2",
+      "content": "Recommendations for using Tailscale"
+    },
+    {
+      "page_num": 3,
+      "type": "text",
+      "content": "If the Tailscale command is available on the client, you can test connectivity first:"
+    },
+    {
+      "page_num": 3,
+      "type": "code",
+      "content": "tailscale ping <raspberry-tailscale-ip>"
+    },
+    {
+      "page_num": 3,
+      "type": "text",
+      "content": "Running `tailscale ping` against that address from the Raspberry Pi itself displays `is local Tailscale IP`. This is expected, but it does not test the connection from the client computer."
+    },
+    {
+      "page_num": 3,
+      "type": "text",
+      "content": "The first SSH connection may display a host authenticity warning. Compare the displayed fingerprint with the Raspberry Pi fingerprint:"
+    },
+    {
+      "page_num": 3,
+      "type": "code",
+      "content": "sudo ssh-keygen -lf /etc/ssh/ssh_host_ed25519_key.pub"
+    },
+    {
+      "page_num": 3,
+      "type": "text",
+      "content": "If they match, answer `yes`. If the same Raspberry Pi was already known through its local IP address, SSH may also report that the key is associated with another address. This is expected when it is the same device."
+    },
+    {
+      "page_num": 4,
+      "type": "h1",
+      "content": "4. Scorpio Developers"
+    },
+    {
+      "page_num": 4,
+      "type": "cite",
+      "content": "**Update coming soon.**"
+    }
+  ]
+}

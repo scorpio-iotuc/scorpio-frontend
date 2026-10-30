@@ -1,12 +1,19 @@
-import { createContext } from "react";
+import { useEffect, useState } from 'react'
+import { AppContext } from './useAppContext'
 
-const AppContext = createContext();
+export function AppProvider({ children }) {
+  const [darkMode, setDarkMode] = useState(false)
 
-export function AppProvider({ children }){
+  useEffect(() => {
+    document.documentElement.classList.toggle('dark-mode', darkMode)
+    return () => document.documentElement.classList.remove('dark-mode')
+  }, [darkMode])
 
-    return (
-        <AppContext.Provider value={{ }}>
-            { children } 
-        </AppContext.Provider>
-    );
-};
+  const toggleDarkMode = () => setDarkMode(previous => !previous)
+
+  return (
+    <AppContext.Provider value={{ darkMode, toggleDarkMode }}>
+      {children}
+    </AppContext.Provider>
+  )
+}
